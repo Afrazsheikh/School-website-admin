@@ -8,7 +8,6 @@ export const environment = {
   apiBaseUrl: 'http://localhost:3000/v1/',
   socketURL: 'http://localhost:3000',
 
-  
 };
 
 /*
