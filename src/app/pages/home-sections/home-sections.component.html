@@ -1,0 +1,311 @@
+<app-layout>
+  <div class="container p-5">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" (selectedTabChange)="onTabChange($event)">
+
+      <mat-tab label="Section 1">
+        <div class="p-3">
+          <div class="text-end mb-4">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSection">Add Slide</button>
+          </div>
+
+          <div class="section-table">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Slide</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Image 1</th>
+                  <th scope="col">Image 2</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let slide of sec1Slides; index as i">
+                  <th scope="row">{{i + 1}}</th>
+                  <td>{{slide.title}}</td>
+                  <td><img class="table-slide-img" [src]="environment.imageBaseUrl + slide.slideImg1" /></td>
+                  <td><img class="table-slide-img" [src]="environment.imageBaseUrl + slide.slideImg2" /></td>
+                  <td>
+                    <i class="fa fa-pencil-square-o edit" (click)="setEditedSlide(slide)"
+                      data-bs-toggle="modal" data-bs-target="#editSection"></i>
+                    &nbsp;&nbsp;&nbsp;
+                    <i class="fa fa-trash del" (click)="setDeletedSlide(slide)"
+                      data-bs-toggle="modal" data-bs-target="#delSection"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Section 2">
+        <div class="p-3">
+          <form [formGroup]="section2Form" (ngSubmit)="updateSection2()">
+            <div class="row">
+              <div class="col-4">
+                <label for="exampleFormControlInput1" class="form-label">Title</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="title">
+              </div>
+              <div class="col-8">
+                <label for="exampleFormControlInput1" class="form-label">Description</label>
+                <textarea rows="3" class="form-control" id="exampleFormControlInput1" formControlName="description">
+                </textarea>
+              </div>
+            </div>
+
+            <div class="row my-3">
+              <div class="col-4">
+                <label for="exampleFormControlInput1" class="form-label">Bottom Left Text</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="bottomText1">
+              </div>
+              <div class="col-4">
+                <label for="exampleFormControlInput1" class="form-label">Bottom Center Text</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="bottomText2">
+              </div>
+              <div class="col-4">
+                <label for="exampleFormControlInput1" class="form-label">Bottom Right Text</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="bottomText3">
+              </div>
+            </div>
+
+            <div class="row my-3">
+              <div class="col-4">
+                <label for="exampleFormControlInput1" class="form-label">Bottom Left SubText</label>
+                <textarea rows="2" class="form-control" id="exampleFormControlInput1" formControlName="bottomSubText1">
+                </textarea>
+              </div>
+              <div class="col-4">
+                <label for="exampleFormControlInput1" class="form-label">Bottom Center SubText</label>
+                <textarea rows="2" class="form-control" id="exampleFormControlInput1" formControlName="bottomSubText2">
+                </textarea>
+              </div>
+              <div class="col-4">
+                <label for="exampleFormControlInput1" class="form-label">Bottom Right SubText</label>
+                <textarea rows="2" class="form-control" id="exampleFormControlInput1" formControlName="bottomSubText3">
+                </textarea>
+              </div>
+            </div>
+
+            <div class="text-center my-5">
+              <button class="btn btn-primary" [disabled]="!section2Form.valid || isSectionLoading">
+                <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+                <span *ngIf="!isSectionLoading">Save Details</span></button>
+            </div>
+          </form>
+          <div class="row my-3">
+            <div class="col-4">
+              <div class="text-center pb-2">
+                <img class="sec2-img img-fluid rounded" [src]="sec2Url1">
+              </div>
+              <label for="exampleFormControlInput1" class="form-label">Bottom Left Image</label>
+              <input class="form-control" type="file" id="formFile" (change)="onSelectSec2File($event, 1)">
+              <div class="my-4">
+                <button class="btn btn-primary" (click)="saveSection2Img(1)" [disabled]="!sec2File1 || isSectionLoading">
+                  <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+                  <span *ngIf="!isSectionLoading">Save</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="text-center pb-2">
+                <img class="sec2-img img-fluid rounded" [src]="sec2Url2">
+              </div>
+              <label for="exampleFormControlInput1" class="form-label">Bottom Center Image</label>
+              <input class="form-control" type="file" id="formFile" (change)="onSelectSec2File($event, 2)">
+              <div class="my-4">
+                <button class="btn btn-primary" (click)="saveSection2Img(2)" [disabled]="!sec2File2 || isSectionLoading">
+                  <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+                  <span *ngIf="!isSectionLoading">Save</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="text-center pb-2">
+                <img class="sec2-img img-fluid rounded" [src]="sec2Url3">
+              </div>
+              <label for="exampleFormControlInput1" class="form-label">Bottom Right Image</label>
+              <input class="form-control" type="file" id="formFile" (change)="onSelectSec2File($event, 3)">
+              <div class="my-4">
+                <button class="btn btn-primary" (click)="saveSection2Img(3)" [disabled]="!sec2File3 || isSectionLoading">
+                  <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+                  <span *ngIf="!isSectionLoading">Save</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Section 3">
+        <div class="p-3">
+          <form [formGroup]="section3Form" (ngSubmit)="updateSection3()">
+            <div class="row">
+              <div class="col-4">
+                <label for="exampleFormControlInput1" class="form-label">Title</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="title">
+              </div>
+              <div class="col-8">
+                <label for="exampleFormControlInput1" class="form-label">Description</label>
+                <textarea rows="3" class="form-control" id="exampleFormControlInput1" formControlName="description">
+                </textarea>
+              </div>
+            </div>
+
+            <div class="row my-3">
+              <div class="col-6">
+                <label for="exampleFormControlInput1" class="form-label">Video Url</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="videoUrl">
+              </div>
+            </div>
+
+            <div class="text-center my-5">
+              <button class="btn btn-primary" [disabled]="!section3Form.valid || isSectionLoading">
+                <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+                <span *ngIf="!isSectionLoading">Save Details</span></button>
+            </div>
+          </form>
+
+          <div class="row my-3">
+            <div class="col-6">
+              <div class="text-center pb-2">
+                <img class="sec2-img img-fluid rounded" [src]="sec3Url1">
+              </div>
+              <label for="exampleFormControlInput1" class="form-label">Image</label>
+              <input class="form-control" type="file" id="formFile" (change)="onSelectSec3File($event, 1)">
+              <div class="my-4">
+                <button class="btn btn-primary" (click)="saveSection3Img(1)" [disabled]="!sec3File1 || isSectionLoading">
+                  <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+                  <span *ngIf="!isSectionLoading">Save</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="text-center pb-2">
+                <img class="sec2-img img-fluid rounded" [src]="sec3Url2">
+              </div>
+              <label for="exampleFormControlInput1" class="form-label">Video Thumbnail</label>
+              <input class="form-control" type="file" id="formFile" (change)="onSelectSec3File($event, 2)">
+              <div class="my-4">
+                <button class="btn btn-primary" (click)="saveSection3Img(2)" [disabled]="!sec3File2 || isSectionLoading">
+                  <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+                  <span *ngIf="!isSectionLoading">Save</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Section 4">Content 1</mat-tab>
+
+      <mat-tab label="Section 5">Content 2</mat-tab>
+
+      <mat-tab label="Section 6">Content 3</mat-tab>
+
+      <mat-tab label="Section 7">Content 3</mat-tab>
+    </mat-tab-group>
+  </div>
+</app-layout>
+
+<!--Slide Add Modal-->
+<div class="modal fade" id="addSection">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Slide</h5>
+        <button type="button" id="addClose" class="btn-close" data-bs-dismiss="modal" (click)="clearSlide()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="slideForm">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Title</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="title">
+          </div>
+
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Image 1</label>
+            <input class="form-control" type="file" id="addSlide1" (change)="onSelectFile($event, 1)">
+            <img class="slide-img img-fluid rounded" [src]="sec1Url1" alt="">
+          </div>
+
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Image 2</label>
+            <input class="form-control" type="file" id="addSlide2" (change)="onSelectFile($event, 2)">
+            <img class="slide-img img-fluid rounded" [src]="sec1Url2" alt="">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearSlide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addSection1Slide()"
+          [disabled]="!slideForm.valid || isSectionLoading || !sec1File1 || !sec1File2">
+          <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isSectionLoading">Save changes</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Slide Edit Modal-->
+<div class="modal fade" id="editSection">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Slide</h5>
+        <button type="button" id="editClose" class="btn-close" data-bs-dismiss="modal" (click)="clearSlide()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="slideForm">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Title</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="title">
+          </div>
+
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Image 1</label>
+            <input class="form-control" type="file" id="editSlide1" (change)="onSelectFile($event, 1)">
+            <img class="slide-img img-fluid rounded" [src]="sec1Url1" alt="">
+          </div>
+
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Image 2</label>
+            <input class="form-control" type="file" id="editSlide2" (change)="onSelectFile($event, 2)">
+            <img class="slide-img img-fluid rounded" [src]="sec1Url2" alt="">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearSlide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="editSection1Slide()"
+          [disabled]="!slideForm.valid || isSectionLoading">
+          <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isSectionLoading">Save changes</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Slide Delete Modal-->
+<div class="modal fade" id="delSection">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Slide</h5>
+        <button type="button" id="delClose" class="btn-close" data-bs-dismiss="modal" (click)="clearSlide()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this Slide?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearSlide()">Close</button>
+        <button type="button" class="btn btn-danger" (click)="deleteSection1Slide()" [disabled]="isSectionLoading">
+          <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isSectionLoading">Delete</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

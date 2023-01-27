@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { DashboardPageComponent } from './pages/dashboard/containers';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import {AuthGuard} from './pages/auth/guards';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { HomeSectionsComponent } from './pages/home-sections/home-sections.component';
 
 const routes: Routes = [
   {
@@ -10,6 +12,18 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AuthGuard],
     component: DashboardPageComponent
+  },
+  {
+    path: 'settings',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: SettingsComponent
+  },
+  {
+    path: 'home-sections',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: HomeSectionsComponent
   },
   {
     path: 'typography',
@@ -51,7 +65,6 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-    useHash: true,
     preloadingStrategy: PreloadAllModules,
     relativeLinkResolution: 'legacy'
 })

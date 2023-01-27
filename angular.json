@@ -27,11 +27,14 @@
               "src/assets"
             ],
             "styles": [
+              "bootstrap-5.3.0/css/bootstrap.min.css",
               "./node_modules/font-awesome/scss/font-awesome.scss",
               "./node_modules/ngx-toastr/toastr.css",
               "src/custom-theme.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "bootstrap-5.3.0/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {

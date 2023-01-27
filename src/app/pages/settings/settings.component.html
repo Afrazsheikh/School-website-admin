@@ -1,0 +1,76 @@
+<app-layout>
+  <div class="container p-5">
+    <h1 >General Settings</h1>
+
+    <div class="row my-5">
+      <div class="col-6 my-auto">
+        <label for="formFile" class="form-label">School Logo</label>
+        <input class="form-control" type="file" id="formFile" (change)="onSelectFile($event)">
+        <div class="my-4">
+          <button class="btn btn-primary" (click)="saveLogo()" [disabled]="!logoFile || isLogoUpdating">
+            <span *ngIf="isLogoUpdating" class="spinner-border text-light" role="status"></span>
+            <span *ngIf="!isLogoUpdating">Save Logo</span>
+          </button>
+        </div>
+      </div>
+      <div class="col-4 text-end">
+        <img class="school-logo img-fluid rounded" [src]="url" alt="">
+      </div>
+    </div>
+
+    <form [formGroup]="settingsForm" (ngSubmit)="updateSettings()">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">School Name</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="name">
+      </div>
+
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Contact</label>
+        <input type="number" class="form-control" id="exampleFormControlInput1" formControlName="phone">
+      </div>
+
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" formControlName="email">
+      </div>
+
+      <div class="mb-3">
+        <h5>School Address</h5>
+        <div class="row mb-3">
+          <div class="col-6">
+            <label for="exampleFormControlInput1" class="form-label">Street</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" formControlName="street">
+          </div>
+          <div class="col-6">
+            <label for="exampleFormControlInput1" class="form-label">City</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" formControlName="city">
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-6">
+            <label for="exampleFormControlInput1" class="form-label">State</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" formControlName="state">
+          </div>
+          <div class="col-6">
+            <label for="exampleFormControlInput1" class="form-label">Country</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="country">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <label for="exampleFormControlInput1" class="form-label">Pincode</label>
+            <input type="number" class="form-control" id="exampleFormControlInput1" formControlName="pincode">
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center my-5">
+        <button class="btn btn-primary" [disabled]="!settingsForm.valid || isSettingsUpdating">
+          <span *ngIf="isSettingsUpdating" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isSettingsUpdating">Save Logo</span></button>
+      </div>
+    </form>
+  </div>
+</app-layout>

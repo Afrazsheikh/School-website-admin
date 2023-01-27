@@ -13,12 +13,20 @@ import { DashboardModule } from './pages/dashboard/dashboard.module';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AuthModule } from './pages/auth/auth.module';
 import { NgxEchartsModule } from 'ngx-echarts';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { AuthInterceptor } from './services/http-interceptor/auth.interceptor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeSectionsComponent } from './pages/home-sections/home-sections.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SettingsComponent,
+    HomeSectionsComponent
   ],
   imports: [
     BrowserModule,
@@ -26,17 +34,22 @@ import { HttpClientModule } from '@angular/common/http';
     AuthModule,
     DashboardModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     AppRoutingModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({positionClass: 'toast-center-center'}),
     MatCardModule,
+    MatTabsModule,
     MatButtonModule,
     HttpClientModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

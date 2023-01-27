@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   hmr: false,
-  apiBaseUrl: 'http://localhost:3000/v1/',
+  apiBaseUrl: 'http://localhost:3000/api/v1/',
+  imageBaseUrl: 'http://localhost:3000/api/v1/uploads/',
   socketURL: 'http://localhost:3000',
 
 };
