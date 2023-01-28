@@ -1,0 +1,40 @@
+<app-layout>
+  <div class="container p-5">
+    <h1 >Careers</h1>
+
+    <form [formGroup]="careerForm" (ngSubmit)="updateCareers()">
+      <div class="row mt-5">
+        <div class="col-6">
+          <label for="formFile" class="form-label">Main Title</label>
+          <input class="form-control" type="text" id="formFile" formControlName="mainTitle">
+        </div>
+        <div class="col-6">
+          <label for="formFile" class="form-label">Right Image</label>
+          <div class="my-3">
+            <img class="school-logo img-fluid rounded" [src]="url" alt="">
+          </div>
+          <input class="form-control" type="file" id="formFile" (change)="onSelectFile($event)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="saveImg()" [disabled]="!imageFile || isImgUpdating">
+              <span *ngIf="isImgUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isImgUpdating">Save Logo</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <label for="formFile" class="form-label">Description</label>
+          <textarea rows="3" class="form-control" id="formFile" formControlName="description"></textarea>
+        </div>
+      </div>
+
+      <div class="text-center my-5">
+        <button class="btn btn-primary" [disabled]="!careerForm.valid || isCareerUpdating">
+          <span *ngIf="isCareerUpdating" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isCareerUpdating">Save Details</span></button>
+      </div>
+    </form>
+  </div>
+</app-layout>

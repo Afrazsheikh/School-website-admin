@@ -108,4 +108,14 @@ export class ApiService {
   deleteSec4Slide(slideId: string): Observable<any> {
     return this.httpClient.delete(environment.apiBaseUrl + 'adminService/deleteSection4/' + slideId);
   }
+
+  // Menu APIS
+  // Careers
+  getCareerData(): Observable<any> {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=careers');
+  }
+
+  updateCareers(postData: FormData): Observable<any> {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/updateCareer', postData);
+  }
 }

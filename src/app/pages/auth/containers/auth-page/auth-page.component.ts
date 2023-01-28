@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../../services';
 import { routes } from '../../../../consts';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-auth-page',
@@ -15,20 +16,20 @@ export class AuthPageComponent {
 
   constructor(
     private service: AuthService,
-    private router: Router
+    private router: Router,
+    private toaster: ToastrService
   ) { }
 
   public sendLoginForm(payload): void {
     this.service.login(payload).subscribe((resp) => {
       console.log(resp);
       localStorage.setItem('token', resp.token);
-      this.router.navigate([this.routers.DASHBOARD]);
+      this.router.navigate([this.routers.SETTINGS]);
     },
     (err) => {
+      this.toaster.error(null, err.error.message);
       console.log(err);
     });
-
-    this.router.navigate([this.routers.DASHBOARD]);
   }
 
   public sendSignForm(): void {

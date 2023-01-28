@@ -5,14 +5,15 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import {AuthGuard} from './pages/auth/guards';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { HomeSectionsComponent } from './pages/home-sections/home-sections.component';
+import { CareersComponent } from './pages/careers/careers.component';
 
 const routes: Routes = [
-  {
+  /* {
     path: 'dashboard',
     pathMatch: 'full',
     canActivate: [AuthGuard],
     component: DashboardPageComponent
-  },
+  }, */
   {
     path: 'settings',
     pathMatch: 'full',
@@ -24,6 +25,12 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AuthGuard],
     component: HomeSectionsComponent
+  },
+  {
+    path: 'careers',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: CareersComponent
   },
   {
     path: 'typography',

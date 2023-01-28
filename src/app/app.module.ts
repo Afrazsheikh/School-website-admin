@@ -20,13 +20,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeSectionsComponent } from './pages/home-sections/home-sections.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CommonModule } from '@angular/common';
+import { CareersComponent } from './pages/careers/careers.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundComponent,
     SettingsComponent,
-    HomeSectionsComponent
+    HomeSectionsComponent,
+    CareersComponent
   ],
   imports: [
     BrowserModule,
