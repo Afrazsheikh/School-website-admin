@@ -21,6 +21,7 @@ import { HomeSectionsComponent } from './pages/home-sections/home-sections.compo
 import { MatTabsModule } from '@angular/material/tabs';
 import { CommonModule } from '@angular/common';
 import { CareersComponent } from './pages/careers/careers.component';
+import { StudCornerComponent } from './pages/stud-corner/stud-corner.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CareersComponent } from './pages/careers/careers.component';
     NotFoundComponent,
     SettingsComponent,
     HomeSectionsComponent,
-    CareersComponent
+    CareersComponent,
+    StudCornerComponent
   ],
   imports: [
     BrowserModule,

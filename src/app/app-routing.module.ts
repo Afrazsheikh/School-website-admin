@@ -6,6 +6,7 @@ import {AuthGuard} from './pages/auth/guards';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { HomeSectionsComponent } from './pages/home-sections/home-sections.component';
 import { CareersComponent } from './pages/careers/careers.component';
+import { StudCornerComponent } from './pages/stud-corner/stud-corner.component';
 
 const routes: Routes = [
   /* {
@@ -31,6 +32,12 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AuthGuard],
     component: CareersComponent
+  },
+  {
+    path: 'stud-corner',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: StudCornerComponent
   },
   {
     path: 'typography',

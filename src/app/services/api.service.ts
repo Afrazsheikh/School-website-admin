@@ -109,6 +109,15 @@ export class ApiService {
     return this.httpClient.delete(environment.apiBaseUrl + 'adminService/deleteSection4/' + slideId);
   }
 
+  //section 5
+  getSection5(): Observable<any> {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=section5');
+  }
+
+  deleteSec5Slide(slideId: string): Observable<any> {
+    return this.httpClient.delete(environment.apiBaseUrl + 'adminService/deleteSection5/' + slideId);
+  }
+
   // Menu APIS
   // Careers
   getCareerData(): Observable<any> {
@@ -117,5 +126,14 @@ export class ApiService {
 
   updateCareers(postData: FormData): Observable<any> {
     return this.httpClient.post(environment.apiBaseUrl + 'adminService/updateCareer', postData);
+  }
+
+  // Student Corner
+  getStudentData(): Observable<any> {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=studCorner');
+  }
+
+  updateStudData(postData: FormData): Observable<any> {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/updateStudData', postData);
   }
 }

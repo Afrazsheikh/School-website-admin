@@ -235,7 +235,41 @@
       </mat-tab>
 
       <mat-tab label="Section 5">
-        Content 2
+
+        <div class="p-3">
+          <div class="text-end mb-4">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSection5">Add Slide</button>
+          </div>
+
+          <div class="section-table">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Slide</th>
+                  <th scope="col">News Image </th>
+                  <th scope="col">Heading</th>
+                  <th scope="col">News Date</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let slide of sec5Slides; index as i">
+                  <th scope="row">{{i + 1}}</th>
+                  <td><img class="table-slide-img" [src]="environment.imageBaseUrl + slide.img" /></td>
+                  <td>{{slide.heading}}</td>
+                  <td>{{slide.newsDate}}</td>
+                  <td>
+                    <i class="fa fa-pencil-square-o edit" (click)="setEditedSlide5(slide)"
+                      data-bs-toggle="modal" data-bs-target="#editSection5"></i>
+                    &nbsp;&nbsp;&nbsp;
+                    <i class="fa fa-trash del" (click)="setDeletedSlide(slide)"
+                      data-bs-toggle="modal" data-bs-target="#delSection5"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </mat-tab>
 
       <mat-tab label="Section 6">
@@ -533,7 +567,6 @@
   </div>
 </div>
 
-
 <!-- edit section 4 -->
 <div class="modal fade" id="editSection4">
   <div class="modal-dialog">
@@ -587,6 +620,107 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearSlide4()">Close</button>
         <button type="button" class="btn btn-danger" (click)="deleteSection4Slide()" [disabled]="isSectionLoading">
+          <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isSectionLoading">Delete</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- section 5 add model -->
+<!--Slide Add Modal-->
+<div class="modal fade" id="addSection5">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New News</h5>
+        <button type="button" id="addSec5Close" class="btn-close" data-bs-dismiss="modal" (click)="clearSlide5()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="section5Form">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Heading</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="heading">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">News Date</label>
+            <input type="date" class="form-control" id="exampleFormControlInput1" formControlName="newsDate">
+          </div>
+
+          <div class="mb-3">
+            <label for="formFile" class="form-label">News Image </label>
+            <input class="form-control" type="file" id="addSec5Slide" (change)="onSelectFile5($event)">
+            <img class="slide-img img-fluid rounded" [src]="sec5Url1" alt="">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearSlide5()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addSection5Slide()"
+          [disabled]="!section5Form.valid || isSectionLoading || !sec5File1" >
+          <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isSectionLoading">Save changes</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- edit section 5 -->
+<div class="modal fade" id="editSection5">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Slide</h5>
+        <button type="button" id="editSec5Close" class="btn-close" data-bs-dismiss="modal" (click)="clearSlide5()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="section5Form">
+
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Heading</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="heading">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">News Date</label>
+            <input type="date" class="form-control" id="exampleFormControlInput1" formControlName="newsDate">
+          </div>
+
+          <div class="mb-3">
+            <label for="formFile" class="form-label">News Image </label>
+            <input class="form-control" type="file" id="editSec5Slide" (change)="onSelectFile5($event)">
+            <img class="slide-img img-fluid rounded" [src]="sec5Url1" alt="">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearSlide5()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="editSection5Slide()"
+          [disabled]="!section5Form.valid || isSectionLoading">
+          <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isSectionLoading">Save changes</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- delete section 5 -->
+<div class="modal fade" id="delSection5">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Slide</h5>
+        <button type="button" id="delSec5Close" class="btn-close" data-bs-dismiss="modal" (click)="clearSlide5()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this Slide?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearSlide5()">Close</button>
+        <button type="button" class="btn btn-danger" (click)="deleteSection5Slide()" [disabled]="isSectionLoading">
           <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
           <span *ngIf="!isSectionLoading">Delete</span>
         </button>
