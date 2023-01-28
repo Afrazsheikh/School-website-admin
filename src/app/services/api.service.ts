@@ -24,24 +24,24 @@ export class ApiService {
   }
 
   // For Section 1
-  getSection1() {
+  getSection1(): Observable<any> {
     return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=section1');
   }
 
-  addHomeSlide(postData: FormData) {
+  addHomeSlide(postData: FormData): Observable<any> {
     return this.httpClient.post(environment.apiBaseUrl + 'adminService/addSection', postData);
   }
 
-  editHomeSlide(postData: FormData) {
+  editHomeSlide(postData: FormData): Observable<any> {
     return this.httpClient.put(environment.apiBaseUrl + 'adminService/updateSection', postData);
   }
 
-  deleteHomeSlide(slideId: string) {
+  deleteHomeSlide(slideId: string): Observable<any> {
     return this.httpClient.delete(environment.apiBaseUrl + 'adminService/deleteSection/' + slideId);
   }
 
   // For Section 2
-  getSection2() {
+  getSection2(): Observable<any> {
     return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=section2');
   }
 
@@ -54,7 +54,7 @@ export class ApiService {
   }
 
   //For Section 3
-  getSection3() {
+  getSection3(): Observable<any> {
     return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=section3');
   }
 
@@ -63,7 +63,7 @@ export class ApiService {
   }
 
   //For Section 7
-  getSection7() {
+  getSection7(): Observable<any> {
     return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=section7');
   }
 
@@ -76,15 +76,36 @@ export class ApiService {
   }
 
   // For Section 6 + Gallery
-  getGalleries() {
+  getGalleries(): Observable<any> {
     return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=galleries');
   }
 
-  addGallery(postData: FormData) {
+  addGallery(postData: FormData): Observable<any> {
     return this.httpClient.post(environment.apiBaseUrl + 'adminService/addGallery', postData);
   }
 
-  deleteGallery(fileId: string) {
+  deleteGallery(fileId: string): Observable<any> {
     return this.httpClient.delete(environment.apiBaseUrl + 'adminService/deleteGallery/' + fileId);
+  }
+
+  //section4
+  getSection4(): Observable<any> {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=section4');
+  }
+
+  addFrontSlide(postData: FormData): Observable<any> {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/addSection', postData);
+  }
+
+  updateSection4Img(postData: FormData): Observable<any> {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/addSection4Img', postData);
+  }
+
+  editSection4Slide(postData: FormData): Observable<any> {
+    return this.httpClient.put(environment.apiBaseUrl + 'adminService/updateSection', postData);
+  }
+
+  deleteSec4Slide(slideId: string): Observable<any> {
+    return this.httpClient.delete(environment.apiBaseUrl + 'adminService/deleteSection4/' + slideId);
   }
 }

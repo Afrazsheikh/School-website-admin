@@ -18,6 +18,8 @@ export class HomeSectionsComponent implements OnInit {
   sec1File2: any;
   isSectionLoading: boolean;
   sec1Slides: any[] = [];
+
+
   selectedSlide: any;
   slideForm: FormGroup;
 
@@ -53,11 +55,19 @@ export class HomeSectionsComponent implements OnInit {
   galleries: any[] = [];
   galleryFiles: any[] = [];
   selectedGall: any;
+  section4Form: FormGroup;
+  sec4File1: any;
+  slide4Form: FormGroup;
+  sec4Url1: any;
+  sec4Slides: any[] = [];
+
+
 
   constructor(private api: ApiService, private toaster: ToastrService) {}
 
   ngOnInit(): void {
     this.getSection1();
+
     this.slideForm = new FormGroup({
       title: new FormControl(null, [Validators.required])
     })
@@ -90,6 +100,11 @@ export class HomeSectionsComponent implements OnInit {
       bottomSubText3: new FormControl(null, [Validators.required]),
     })
 
+    this.slide4Form = new FormGroup ({
+      title: new FormControl(null, [Validators.required]),
+      description: new FormControl(null),
+    })
+
     this.section7Form = new FormGroup({
       title: new FormControl(null, [Validators.required]),
       subTitle: new FormControl(null, [Validators.required]),
@@ -101,8 +116,6 @@ export class HomeSectionsComponent implements OnInit {
   }
 
   onTabChange(event: any) {
-    console.log('change');
-
     if(event.index == 0) {
       this.getSection1();
     }
@@ -113,7 +126,7 @@ export class HomeSectionsComponent implements OnInit {
       this.getSection3();
     }
     else if(event.index == 3) {
-
+        this.getSection4();
     }
     else if(event.index == 4) {
 
@@ -571,7 +584,6 @@ export class HomeSectionsComponent implements OnInit {
       postData.append('file', this.sec7File5, this.sec7Data.bottomRightImage);
     }
 
-
     this.api.updateSection7Img(postData).subscribe((resp) => {
       this.isSectionLoading = false;
       this.toaster.success(null, resp.message);
@@ -648,6 +660,120 @@ export class HomeSectionsComponent implements OnInit {
       this.isSectionLoading = false;
       document.getElementById('gallDelClose')?.click();
       this.getGalleries();
+      console.log(resp);
+    },
+    (err) => {
+      this.isSectionLoading = false;
+      console.error(err);
+    })
+  }
+
+  //section4
+
+  getSection4()
+  {
+    this.api.getSection4().subscribe((resp: any) => {
+      console.log(resp, "getSection4 -------------");
+      this.sec4Slides = resp.data.section4;
+    },
+    (err) => {
+      console.error(err);
+    })
+  }
+
+  addSection4Slide()
+  {
+    this.isSectionLoading = true;
+    let postData = new FormData();
+    postData.append('file[]', this.sec4File1);
+    postData.append('title', this.slide4Form.value.title);
+    postData.append('description', this.slide4Form.value.description);
+    postData.append('secType', 'sec4');
+
+    this.api.addFrontSlide(postData).subscribe((resp) => {
+      this.isSectionLoading = false;
+      document.getElementById('addSec4Close')?.click();
+      this.getSection4();
+      console.log(resp);
+    },
+    (err) => {
+      this.isSectionLoading = false;
+      console.error(err);
+    })
+  }
+
+  onSelectFile4(event)
+  {
+    if (event.target.files && event.target.files[0])
+    {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]);
+
+      this.sec4File1 = event.target.files[0];
+
+      reader.onload = (event) => {
+        this.sec4Url1 = event.target.result;
+      }
+    }
+  }
+
+  clearSlide4()
+  {
+    this.selectedSlide = null;
+    this.slide4Form.patchValue({title: null, description: null});
+    this.sec4Url1 = null;
+    this.sec4File1 = null;
+
+    let file: any = document.getElementById('addSec4Slide');
+    file.value = null;
+    file = document.getElementById('editSec4Slide');
+    file.value = null;
+  }
+
+  setEditedSec4Slide(slide: any)
+  {
+    this.selectedSlide = slide;
+    this.slide4Form.patchValue({
+      title: this.selectedSlide.title,
+      description: this.selectedSlide.description != 'null' ? this.selectedSlide.description : null
+    });
+    this.sec4Url1 = environment.imageBaseUrl + this.selectedSlide.img;
+  }
+
+  editSection4Slide()
+  {
+    this.isSectionLoading = true;
+    let postData = new FormData();
+    if(this.sec4File1) {
+      postData.append('file[]', this.sec4File1, this.selectedSlide.img);
+    }
+
+
+    postData.append('id', this.selectedSlide._id);
+    postData.append('title', this.slide4Form.value.title);
+    postData.append('description', this.slide4Form.value.description);
+    postData.append('secType', 'sec4');
+
+    this.api.editSection4Slide(postData).subscribe((resp) => {
+      this.isSectionLoading = false;
+      document.getElementById('editSec4Close')?.click();
+      this.getSection4();
+      console.log(resp);
+    },
+    (err) => {
+      this.isSectionLoading = false;
+      console.error(err);
+    })
+  }
+
+  deleteSection4Slide()
+  {
+    this.isSectionLoading = true;
+    this.api.deleteSec4Slide(this.selectedSlide._id).subscribe((resp) => {
+      this.isSectionLoading = false;
+      document.getElementById('delSec4Close')?.click();
+      this.getSection4();
       console.log(resp);
     },
     (err) => {
