@@ -61,4 +61,19 @@ export class ApiService {
   updateSection3Img(postData: FormData): Observable<any> {
     return this.httpClient.post(environment.apiBaseUrl + 'adminService/addSection3Img', postData);
   }
+
+  //section4
+  getSection4() {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=section4');
+  }
+
+  addFrontSlide(postData: FormData) {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/addSection?secType=section4', postData);
+  }
+  updateSection4Img(postData: FormData): Observable<any> {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/addSection4', postData);
+  }
+  editSection4Slide(postData: FormData) {
+    return this.httpClient.put(environment.apiBaseUrl + 'adminService/updateSection?secType=section4', postData);
+  }
 }

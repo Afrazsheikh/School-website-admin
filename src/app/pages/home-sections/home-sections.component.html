@@ -197,7 +197,52 @@
         </div>
       </mat-tab>
 
-      <mat-tab label="Section 4">Content 1</mat-tab>
+      <mat-tab label="Section 4">
+
+
+
+      
+          <div class="p-3">
+            <div class="text-end mb-4">
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSection4">Add Slide</button>
+            </div>
+  
+            <div class="section-table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Slide</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Image</th>
+                    <!-- <th scope="col">Image 2</th> -->
+                    <th scope="col">Description</th>
+
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let slide of sec4Slides; index as i">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{slide.title}}</td>
+                    <td><img class="table-slide-img" [src]="environment.imageBaseUrl + slide.slideImg1" /></td>
+                    <!-- <td><img class="table-slide-img" [src]="environment.imageBaseUrl + slide.slideImg2" /></td> -->
+                    <td>
+                      <i class="fa fa-pencil-square-o edit" (click)="setEditedSlide(slide)"
+                        data-bs-toggle="modal" data-bs-target="#editSection4"></i>
+                      &nbsp;&nbsp;&nbsp;
+                      <i class="fa fa-trash del" (click)="setDeletedSlide(slide)"
+                        data-bs-toggle="modal" data-bs-target="#delSection"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+  
+  
+
+        
+      </mat-tab>
 
       <mat-tab label="Section 5">Content 2</mat-tab>
 
@@ -248,6 +293,90 @@
   </div>
 </div>
 
+
+<!-- slide add model section 4 -->
+
+<!--Slide Add Modal-->
+<div class="modal fade" id="addSection4">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Slide</h5>
+        <button type="button" id="addClose" class="btn-close" data-bs-dismiss="modal" (click)="clearSlide4()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="slide4Form">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Title</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="title">
+          </div>
+
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Image </label>
+            <input class="form-control" type="file" id="addSlide1" (change)="onSelectFile4($event, 1)">
+            <img class="slide-img img-fluid rounded" [src]="sec4Url1" alt="">
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Description</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="description">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearSlide4()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addSection4Slide()"
+          [disabled]="!slideForm.valid || isSectionLoading || !sec4File1 ">
+          <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isSectionLoading">Save changes</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- edit section 4 -->
+<div class="modal fade" id="editSection4">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Slide</h5>
+        <button type="button" id="editClose" class="btn-close" data-bs-dismiss="modal" (click)="clearSlide()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="slide4Form">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Title</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="title">
+          </div>
+
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Image </label>
+            <input class="form-control" type="file" id="editSlide1" (change)="onSelectFile($event, 1)">
+            <img class="slide-img img-fluid rounded" [src]="sec4Url1" alt="">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Description</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="description">
+          </div>
+     
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearSlide()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="editSection4Slide()"
+          [disabled]="!slideForm.valid || isSectionLoading">
+          <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isSectionLoading">Save changes</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <!--Slide Edit Modal-->
 <div class="modal fade" id="editSection">
   <div class="modal-dialog">
@@ -287,6 +416,8 @@
     </div>
   </div>
 </div>
+
+
 
 <!--Slide Delete Modal-->
 <div class="modal fade" id="delSection">

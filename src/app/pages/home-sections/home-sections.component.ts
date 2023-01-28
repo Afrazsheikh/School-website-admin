@@ -18,6 +18,8 @@ export class HomeSectionsComponent implements OnInit {
   sec1File2: any;
   isSectionLoading: boolean;
   sec1Slides: any[] = [];
+
+
   selectedSlide: any;
   slideForm: FormGroup;
 
@@ -37,9 +39,24 @@ export class HomeSectionsComponent implements OnInit {
   sec3File1: any;
   sec3File2: any;
 
+  section4Form: FormGroup;
+  sec4File1: any;
+  slide4Form: FormGroup;
+  sec4Url1: any;
+  sec4Slides: any[] = [];
+
+
+
   constructor(private api: ApiService, private toaster: ToastrService) {}
 
   ngOnInit(): void {
+    this.getSection4();
+    this.slide4Form = new FormGroup ({
+      title: new FormControl(null, [Validators.required]),
+      description: new FormControl(null, [Validators.required]),
+
+
+    })
     this.getSection1();
     this.slideForm = new FormGroup({
       title: new FormControl(null, [Validators.required])
@@ -76,7 +93,7 @@ export class HomeSectionsComponent implements OnInit {
       this.getSection3();
     }
     else if(event.index == 3) {
-
+        this.getSection4();
     }
     else if(event.index == 4) {
 
@@ -417,4 +434,132 @@ export class HomeSectionsComponent implements OnInit {
       console.error(err);
     })
   }
+  //section4
+  
+  getSection4() {
+    this.api.getSection4().subscribe((resp: any) => {
+      console.log(resp, "getSection4 -------------");
+      this.sec4Slides = resp.data.section4;
+    },
+    (err) => {
+      console.error(err);
+    })
+  }
+
+  
+  addSection4Slide()
+  {
+    this.isSectionLoading = true;
+    let postData = new FormData();
+    postData.append('file[]', this.sec4File1);
+    postData.append('title', this.slide4Form.value.title);
+    postData.append('description', this.slide4Form.value.description);
+    postData.append('img', this.slide4Form.value.img)
+    postData.append('secType', 'sec4');
+
+    this.api.updateSection4Img(postData).subscribe((resp) => {
+      this.isSectionLoading = false;
+      document.getElementById('addClose')?.click();
+      this.getSection4();
+      console.log(resp);
+    },
+    (err) => {
+      this.isSectionLoading = false;
+      console.error(err);
+    })
+  }
+
+  saveSection4Img(imgInd: number)
+  {
+    this.isSectionLoading = true;
+    let postData = new FormData();
+    if(imgInd == 1) {
+      postData.append('imgType', 'img');
+      postData.append('file', this.sec4File1, 'section4Img.jpg');
+    }
+  
+
+    this.api.updateSection4Img(postData).subscribe((resp) => {
+      console.log("section4 img ", resp);
+      
+      this.isSectionLoading = false;
+      this.toaster.success(null, resp.message);
+      console.log(resp);
+    },
+    (err: HttpErrorResponse) => {
+      this.isSectionLoading = false;
+      this.toaster.error(null, err.error.message);
+      console.error(err);
+    })
+  }
+  
+  onSelectFile4(event, img: number)
+  {
+    if (event.target.files && event.target.files[0])
+    {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]);
+      if(img == 1) {
+        this.sec4File1 = event.target.files[0];
+      }
+     
+
+      reader.onload = (event) => {
+        if(img == 1) {
+          this.sec4Url1 = event.target.result;
+        }
+    
+      }
+    }
+  }
+
+
+
+  clearSlide4()
+  {
+    this.selectedSlide = null;
+    this.slideForm.patchValue({title: null});
+    this.sec4Url1 = null;
+    this.sec4File1 = null;
+
+    let file: any = document.getElementById('addSlide1');
+    file.value = null;
+    file = document.getElementById('addSlide2');
+    file.value = null;
+    file = document.getElementById('editSlide1');
+    file.value = null;
+    file = document.getElementById('editSlide2');
+    file.value = null;
+  }
+
+  
+  editSection4Slide()
+  {
+    this.isSectionLoading = true;
+    let postData = new FormData();
+    if(this.sec1File1) {
+      postData.append('file[]', this.sec4File1, this.selectedSlide.slideImg1);
+    }
+
+
+    postData.append('id', this.selectedSlide._id);
+    postData.append('title', this.slideForm.value.title);
+    postData.append('description', this.slideForm.value.description);
+
+    
+    postData.append('secType', 'sec4');
+
+    this.api.editSection4Slide(postData).subscribe((resp) => {
+      this.isSectionLoading = false;
+      document.getElementById('editClose')?.click();
+      this.getSection4();
+      console.log(resp);
+    },
+    (err) => {
+      this.isSectionLoading = false;
+      console.error(err);
+    })
+  }
+
 }
