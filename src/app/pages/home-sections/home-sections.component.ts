@@ -61,6 +61,19 @@ export class HomeSectionsComponent implements OnInit {
   sec4Url1: any;
   sec4Slides: any[] = [];
 
+  section5Form : FormGroup;
+  
+  sec5File1: any;
+  sec5Slides: any[] = [];
+  sec5Url1: any;
+  sec5Url2: any;
+  sec5Url3: any;
+  sec5File2: any;
+  sec5File3: any;
+
+
+
+
 
 
   constructor(private api: ApiService, private toaster: ToastrService) {}
@@ -104,6 +117,10 @@ export class HomeSectionsComponent implements OnInit {
       title: new FormControl(null, [Validators.required]),
       description: new FormControl(null),
     })
+    this.section5Form =  new FormGroup({
+      heading : new FormControl(null, [Validators.required]),
+      newsDate: new FormControl(null, [Validators.required]),
+    })
 
     this.section7Form = new FormGroup({
       title: new FormControl(null, [Validators.required]),
@@ -129,6 +146,7 @@ export class HomeSectionsComponent implements OnInit {
         this.getSection4();
     }
     else if(event.index == 4) {
+      this.getSection5();
 
     }
     else if(event.index == 5) {
@@ -203,6 +221,18 @@ export class HomeSectionsComponent implements OnInit {
     this.sec1Url1 = environment.imageBaseUrl + this.selectedSlide.slideImg1;
     this.sec1Url2 = environment.imageBaseUrl + this.selectedSlide.slideImg2;
   }
+  setEditedSlide5(slide: any)
+  {
+    this.selectedSlide = slide;
+    this.section5Form.patchValue({heading: this.selectedSlide.heading});
+    this.section5Form.patchValue({newDate: this.selectedSlide.newDate});
+
+    this.sec1Url1 = environment.imageBaseUrl + this.selectedSlide.slideImg1;
+    // this.sec1Url2 = environment.imageBaseUrl + this.selectedSlide.slideImg2;
+    // this.sec1Url2 = environment.imageBaseUrl + this.selectedSlide.slideImg3;
+
+  }
+
 
   setDeletedSlide(slide: any) {
     this.selectedSlide = slide;
@@ -781,4 +811,127 @@ export class HomeSectionsComponent implements OnInit {
       console.error(err);
     })
   }
+  // for section 5
+
+  getSection5(){
+    this.api.getSection5().subscribe((resp: any) => {
+      console.log(resp);
+      this.sec5Slides = resp.data.section5;
+    },
+    (err) => {
+      console.error(err);
+    })
+
+  }
+
+  addSection5Slide()
+  {
+    console.log("clicked");
+    
+    this.isSectionLoading = true;
+    let postData = new FormData();
+    postData.append('file[]', this.sec5File1);
+    postData.append('heading', this.section5Form.value.heading);
+    postData.append('newsDate', this.section5Form.value.newsDate);
+    postData.append('secType', 'sec5');
+
+    this.api.addNewsSlide(postData).subscribe((resp) => {
+      console.log("resp5", resp);
+      
+      this.isSectionLoading = false;
+      document.getElementById('addClose')?.click();
+      this.getSection5();
+      console.log(resp);
+    },
+    (err) => {
+      this.isSectionLoading = false;
+      console.error(err);
+    })
+  }
+  
+  onSelectFile5(event)
+  {
+    if (event.target.files && event.target.files[0])
+    {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]);
+
+      this.sec5File1 = event.target.files[0];
+
+      reader.onload = (event) => {
+        this.sec5Url1 = event.target.result;
+      }
+    }
+  }
+  clearSlide5()
+  {
+    this.selectedSlide = null;
+    this.slideForm.patchValue({title: null});
+    this.sec5Url1 = null;
+    this.sec5Url2 = null;
+    this.sec5Url3 = null;
+    this.sec5File1 = null;
+    this.sec5File2 = null;
+    this.sec5File3 = null;
+
+    let file: any = document.getElementById('addSlide1');
+    file.value = null;
+    file = document.getElementById('addSlide2');
+    file.value = null;
+    file = document.getElementById('editSlide1');
+    file.value = null;
+    file = document.getElementById('editSlide2');
+    file.value = null;
+  }
+  
+  editSection5Slide()
+  {
+    this.isSectionLoading = true;
+    let postData = new FormData();
+    if(this.sec5File1) {
+      postData.append('file[]', this.sec5File1, this.selectedSlide.img);
+    }
+    // else if(this.sec1File2){
+    //   postData.append('file[]', this.sec5File2, this.selectedSlide.img);
+
+    // }else{
+    //   postData.append('file[]', this.sec5File3, this.selectedSlide.img);
+
+    // }
+
+    postData.append('id', this.selectedSlide._id);
+    postData.append('heading', this.section5Form.value.heading);
+    postData.append('newsDate', this.slide4Form.value.newsDate);
+    postData.append('secType', 'sec5');
+
+    this.api.editSection5Slide(postData).subscribe((resp) => {
+      this.isSectionLoading = false;
+      document.getElementById('editSec5Close')?.click();
+      this.getSection5();
+      console.log(resp);
+    },
+    (err) => {
+      this.isSectionLoading = false;
+      console.error(err);
+    })
+  }
+
+
+
+  deleteSection5Slide()
+  {
+    this.isSectionLoading = true;
+    this.api.deleteSec5Slide(this.selectedSlide._id).subscribe((resp) => {
+      this.isSectionLoading = false;
+      document.getElementById('delSec5Close')?.click();
+      this.getSection5();
+      console.log(resp);
+    },
+    (err) => {
+      this.isSectionLoading = false;
+      console.error(err);
+    })
+  }
+
 }
