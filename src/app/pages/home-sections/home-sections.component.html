@@ -201,9 +201,155 @@
 
       <mat-tab label="Section 5">Content 2</mat-tab>
 
-      <mat-tab label="Section 6">Content 3</mat-tab>
+      <mat-tab label="Section 6">
+        <div class="p-3">
+          <div class="text-end mb-4">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGallery">Add Gallery Image</button>
+          </div>
 
-      <mat-tab label="Section 7">Content 3</mat-tab>
+          <div class="section-table">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">S.No.</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let gall of galleries; index as i">
+                  <th scope="row">{{i + 1}}</th>
+                  <td><img class="table-slide-img" [src]="environment.imageBaseUrl + gall.img" /></td>
+                  <td>
+                    <i class="fa fa-trash del" (click)="setDeletedGallery(gall)"
+                      data-bs-toggle="modal" data-bs-target="#delGallery"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Section 7">
+        <div class="p-3">
+          <form [formGroup]="section7Form" (ngSubmit)="updateSection7()">
+            <div class="row">
+              <div class="col-6">
+                <label for="exampleFormControlInput1" class="form-label">Title</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="title">
+              </div>
+              <div class="col-6">
+                <label for="exampleFormControlInput1" class="form-label">Sub Title</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" formControlName="subTitle">
+              </div>
+            </div>
+
+            <div class="row my-3">
+              <div class="col-6">
+                <label for="exampleFormControlInput1" class="form-label">Top Left Text</label>
+                <textarea rows="2" class="form-control" id="exampleFormControlInput1" formControlName="topLeftText">
+                </textarea>
+              </div>
+              <div class="col-6">
+                <label for="exampleFormControlInput1" class="form-label">Top Right Text</label>
+                <textarea rows="2" class="form-control" id="exampleFormControlInput1" formControlName="bottomLeftText">
+                </textarea>
+              </div>
+            </div>
+
+            <div class="row my-3">
+              <div class="col-6">
+                <label for="exampleFormControlInput1" class="form-label">Bottom Left Text</label>
+                <textarea rows="2" class="form-control" id="exampleFormControlInput1" formControlName="topRightText">
+                </textarea>
+              </div>
+              <div class="col-6">
+                <label for="exampleFormControlInput1" class="form-label">Bottom Right Text</label>
+                <textarea rows="2" class="form-control" id="exampleFormControlInput1" formControlName="bottomRightText">
+                </textarea>
+              </div>
+            </div>
+
+            <div class="text-center my-5">
+              <button class="btn btn-primary" [disabled]="!section7Form.valid || isSectionLoading">
+                <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+                <span *ngIf="!isSectionLoading">Save Details</span></button>
+            </div>
+          </form>
+
+          <div class="row my-3">
+            <div class="col-4">
+              <div class="text-center pb-2">
+                <img class="sec2-img img-fluid rounded" [src]="sec7Url1">
+              </div>
+              <label for="exampleFormControlInput1" class="form-label">Top Left Image</label>
+              <input class="form-control" type="file" id="formFile" (change)="onSelectSec7File($event, 1)">
+              <div class="my-4">
+                <button class="btn btn-primary" (click)="saveSection7Img(1)" [disabled]="!sec7File1 || isSectionLoading">
+                  <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+                  <span *ngIf="!isSectionLoading">Save</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="text-center pb-2">
+                <img class="sec2-img img-fluid rounded" [src]="sec7Url2">
+              </div>
+              <label for="exampleFormControlInput1" class="form-label">Center Image</label>
+              <input class="form-control" type="file" id="formFile" (change)="onSelectSec7File($event, 2)">
+              <div class="my-4">
+                <button class="btn btn-primary" (click)="saveSection7Img(2)" [disabled]="!sec7File2 || isSectionLoading">
+                  <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+                  <span *ngIf="!isSectionLoading">Save</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="text-center pb-2">
+                <img class="sec2-img img-fluid rounded" [src]="sec7Url3">
+              </div>
+              <label for="exampleFormControlInput1" class="form-label">Top Right Image</label>
+              <input class="form-control" type="file" id="formFile" (change)="onSelectSec7File($event, 3)">
+              <div class="my-4">
+                <button class="btn btn-primary" (click)="saveSection7Img(3)" [disabled]="!sec7File3 || isSectionLoading">
+                  <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+                  <span *ngIf="!isSectionLoading">Save</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row my-3">
+            <div class="col-4">
+              <div class="text-center pb-2">
+                <img class="sec2-img img-fluid rounded" [src]="sec7Url4">
+              </div>
+              <label for="exampleFormControlInput1" class="form-label">Bottom Left Image</label>
+              <input class="form-control" type="file" id="formFile" (change)="onSelectSec7File($event, 4)">
+              <div class="my-4">
+                <button class="btn btn-primary" (click)="saveSection7Img(4)" [disabled]="!sec7File4 || isSectionLoading">
+                  <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+                  <span *ngIf="!isSectionLoading">Save</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-4 offset-4">
+              <div class="text-center pb-2">
+                <img class="sec2-img img-fluid rounded" [src]="sec7Url5">
+              </div>
+              <label for="exampleFormControlInput1" class="form-label">Bottom Right Image</label>
+              <input class="form-control" type="file" id="formFile" (change)="onSelectSec7File($event, 5)">
+              <div class="my-4">
+                <button class="btn btn-primary" (click)="saveSection7Img(5)" [disabled]="!sec7File5 || isSectionLoading">
+                  <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+                  <span *ngIf="!isSectionLoading">Save</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
     </mat-tab-group>
   </div>
 </app-layout>
@@ -302,6 +448,55 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearSlide()">Close</button>
         <button type="button" class="btn btn-danger" (click)="deleteSection1Slide()" [disabled]="isSectionLoading">
+          <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isSectionLoading">Delete</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Add Gallery Modal-->
+<div class="modal fade" id="addGallery">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Images</h5>
+        <button type="button" id="galleryClose" class="btn-close" data-bs-dismiss="modal" (click)="galleryFiles=[]"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="formFile" class="form-label">Select Image(s) [Max 10 per request]</label>
+          <input class="form-control" type="file" id="addGalleryInp" (change)="onSelectGalleryFile($event)" multiple="true">
+          <img class="slide-img img-fluid rounded" [src]="sec1Url1" alt="">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="galleryFiles=[]">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addGallery()"
+          [disabled]="isSectionLoading || !galleryFiles.length">
+          <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isSectionLoading">Add Images</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Delete Gallery Modal-->
+<div class="modal fade" id="delGallery">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Gallery</h5>
+        <button type="button" id="gallDelClose" class="btn-close" data-bs-dismiss="modal" (click)="selectedGall=null"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this gallery Image?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="selectedGall=null">Close</button>
+        <button type="button" class="btn btn-danger" (click)="deleteGallery()" [disabled]="isSectionLoading">
           <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
           <span *ngIf="!isSectionLoading">Delete</span>
         </button>

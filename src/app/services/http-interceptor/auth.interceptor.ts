@@ -19,7 +19,9 @@ export class AuthInterceptor implements HttpInterceptor {
     'api/v1/adminService/updateSection',
     'api/v1/adminService/deleteSection',
     'api/v1/adminService/addSection2Img',
-    'api/v1/adminService/addSection3Img'
+    'api/v1/adminService/addSection3Img',
+    'api/v1/adminService/addGallery',
+    'api/v1/adminService/deleteGallery'
   ];
 
   constructor() {}

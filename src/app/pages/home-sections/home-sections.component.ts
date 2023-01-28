@@ -37,6 +37,23 @@ export class HomeSectionsComponent implements OnInit {
   sec3File1: any;
   sec3File2: any;
 
+  section7Form: FormGroup;
+  sec7Data: any;
+  sec7Url1: any;
+  sec7Url2: any;
+  sec7Url3: any;
+  sec7Url4: any;
+  sec7Url5: any;
+  sec7File1: any;
+  sec7File2: any;
+  sec7File3: any;
+  sec7File4: any;
+  sec7File5: any;
+
+  galleries: any[] = [];
+  galleryFiles: any[] = [];
+  selectedGall: any;
+
   constructor(private api: ApiService, private toaster: ToastrService) {}
 
   ngOnInit(): void {
@@ -61,6 +78,26 @@ export class HomeSectionsComponent implements OnInit {
       description: new FormControl(null, [Validators.required]),
       videoUrl: new FormControl(null, [Validators.required]),
     })
+
+    this.section2Form = new FormGroup({
+      title: new FormControl(null, [Validators.required]),
+      description: new FormControl(null, [Validators.required]),
+      bottomText1: new FormControl(null, [Validators.required]),
+      bottomText2: new FormControl(null, [Validators.required]),
+      bottomText3: new FormControl(null, [Validators.required]),
+      bottomSubText1: new FormControl(null, [Validators.required]),
+      bottomSubText2: new FormControl(null, [Validators.required]),
+      bottomSubText3: new FormControl(null, [Validators.required]),
+    })
+
+    this.section7Form = new FormGroup({
+      title: new FormControl(null, [Validators.required]),
+      subTitle: new FormControl(null, [Validators.required]),
+      topLeftText: new FormControl(null, [Validators.required]),
+      bottomLeftText: new FormControl(null, [Validators.required]),
+      topRightText: new FormControl(null, [Validators.required]),
+      bottomRightText: new FormControl(null, [Validators.required]),
+    })
   }
 
   onTabChange(event: any) {
@@ -82,10 +119,10 @@ export class HomeSectionsComponent implements OnInit {
 
     }
     else if(event.index == 5) {
-
+      this.getGalleries();
     }
     else {
-
+      this.getSection7();
     }
 
   }
@@ -328,7 +365,7 @@ export class HomeSectionsComponent implements OnInit {
     this.sec2Url3 = environment.imageBaseUrl + this.sec2Data.bottomImage3;
   }
 
-  //
+  // For Section 3
   getSection3()
   {
     this.api.getSection3().subscribe((resp: any) => {
@@ -414,6 +451,207 @@ export class HomeSectionsComponent implements OnInit {
     (err: HttpErrorResponse) => {
       this.isSectionLoading = false;
       this.toaster.error(null, err.error.message);
+      console.error(err);
+    })
+  }
+
+  // For Section 7
+
+  getSection7()
+  {
+    this.api.getSection7().subscribe((resp: any) => {
+      this.sec7Data = resp.data.section7;
+      this.patchSection7Data();
+    },
+    (err) => {
+      console.error(err);
+    })
+  }
+
+  updateSection7()
+  {
+    this.isSectionLoading = true;
+    let postData = this.section7Form.value;
+    postData["secType"] = "sec7";
+    this.api.updateSection7(postData).subscribe((resp) => {
+      console.log(resp);
+      this.isSectionLoading = false;
+      this.getSection7();
+    },
+    (err) => {
+      console.error(err);
+      this.isSectionLoading = false;
+    })
+  }
+
+  patchSection7Data()
+  {
+    this.section7Form.patchValue({
+      title: this.sec7Data.title,
+      subTitle: this.sec7Data.subTitle,
+      topLeftText: this.sec7Data.topLeftText,
+      topRightText: this.sec7Data.topRightText,
+      bottomLeftText: this.sec7Data.bottomLeftText,
+      bottomRightText: this.sec7Data.bottomRightText,
+    });
+
+    this.sec7Url1 = environment.imageBaseUrl + this.sec7Data.topLeftImage;
+    this.sec7Url2 = environment.imageBaseUrl + this.sec7Data.centerImage;
+    this.sec7Url3 = environment.imageBaseUrl + this.sec7Data.topRightImage;
+    this.sec7Url4 = environment.imageBaseUrl + this.sec7Data.bottomLeftImage;
+    this.sec7Url5 = environment.imageBaseUrl + this.sec7Data.bottomRightImage;
+  }
+
+  onSelectSec7File(event, imgInd)
+  {
+    if (event.target.files && event.target.files[0])
+    {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]);
+      if(imgInd == 1) {
+        this.sec7File1 = event.target.files[0];
+      }
+      else if(imgInd == 2) {
+        this.sec7File2 = event.target.files[0];
+      }
+      else if(imgInd == 3) {
+        this.sec7File3 = event.target.files[0];
+      }
+      else if(imgInd == 4) {
+        this.sec7File4 = event.target.files[0];
+      }
+      else {
+        this.sec7File5 = event.target.files[0];
+      }
+
+
+      reader.onload = (event) => {
+        if(imgInd == 1) {
+          this.sec7Url1 = event.target.result;
+        }
+        else if(imgInd == 2) {
+          this.sec7Url2 = event.target.result;
+        }
+        else if(imgInd == 3) {
+          this.sec7Url3 = event.target.result;
+        }
+        else if(imgInd == 4) {
+          this.sec7Url4 = event.target.result;
+        }
+        else {
+          this.sec7Url5 = event.target.result;
+        }
+      }
+    }
+  }
+
+  saveSection7Img(imgInd: number)
+  {
+    this.isSectionLoading = true;
+    let postData = new FormData();
+    if(imgInd == 1) {
+      postData.append('imgType', 'topLeft');
+      postData.append('file', this.sec7File1, this.sec7Data.topLeftImage);
+    }
+    else if(imgInd == 2) {
+      postData.append('imgType', 'center');
+      postData.append('file', this.sec7File2, this.sec7Data.centerImage);
+    }
+    else if(imgInd == 3) {
+      postData.append('imgType', 'topRight');
+      postData.append('file', this.sec7File3, this.sec7Data.topRightImage);
+    }
+    else if(imgInd == 4) {
+      postData.append('imgType', 'bottomLeft');
+      postData.append('file', this.sec7File4, this.sec7Data.bottomLeftImage);
+    }
+    else {
+      postData.append('imgType', 'bottomRight');
+      postData.append('file', this.sec7File5, this.sec7Data.bottomRightImage);
+    }
+
+
+    this.api.updateSection7Img(postData).subscribe((resp) => {
+      this.isSectionLoading = false;
+      this.toaster.success(null, resp.message);
+      console.log(resp);
+    },
+    (err: HttpErrorResponse) => {
+      this.isSectionLoading = false;
+      this.toaster.error(null, err.error.message);
+      console.error(err);
+    })
+  }
+
+  // For Section 6
+  onSelectGalleryFile(event)
+  {
+    if (event.target.files && event.target.files.length)
+    {
+      if(event.target.files.length <= 10) {
+        for(let i = 0; i < event.target.files.length; i++) {
+          this.galleryFiles.push(event.target.files[i]);
+        }
+      }
+      else {
+        this.toaster.warning(null, "Please select Upto 10 Images");
+      }
+
+      console.log(this.galleryFiles);
+    }
+  }
+
+  getGalleries()
+  {
+    this.api.getGalleries().subscribe((resp: any) => {
+      console.log(resp);
+      this.galleries = resp.data.galleries;
+    },
+    (err) => {
+      console.error(err);
+    })
+  }
+
+  addGallery()
+  {
+    this.isSectionLoading = true;
+    let postData = new FormData();
+    this.galleryFiles.forEach(gall => {
+      postData.append('file[]', gall);
+    });
+    postData.append('secType', 'sec6');
+
+    this.api.addGallery(postData).subscribe((resp) => {
+      this.isSectionLoading = false;
+      document.getElementById('galleryClose')?.click();
+      const fileInp: any = document.getElementById('addGalleryInp');
+      fileInp.value = null;
+      this.getGalleries();
+      console.log(resp);
+    },
+    (err) => {
+      this.isSectionLoading = false;
+      console.error(err);
+    })
+  }
+
+  setDeletedGallery(gall: any) {
+    this.selectedGall = gall;
+  }
+
+  deleteGallery()
+  {
+    this.isSectionLoading = true;
+
+    this.api.deleteGallery(this.selectedGall._id).subscribe((resp) => {
+      this.isSectionLoading = false;
+      document.getElementById('gallDelClose')?.click();
+      this.getGalleries();
+      console.log(resp);
+    },
+    (err) => {
+      this.isSectionLoading = false;
       console.error(err);
     })
   }

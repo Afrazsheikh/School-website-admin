@@ -61,4 +61,30 @@ export class ApiService {
   updateSection3Img(postData: FormData): Observable<any> {
     return this.httpClient.post(environment.apiBaseUrl + 'adminService/addSection3Img', postData);
   }
+
+  //For Section 7
+  getSection7() {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=section7');
+  }
+
+  updateSection7Img(postData: FormData): Observable<any> {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/addSection7Img', postData);
+  }
+
+  updateSection7(postData: any): Observable<any> {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/addSection', postData);
+  }
+
+  // For Section 6 + Gallery
+  getGalleries() {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=galleries');
+  }
+
+  addGallery(postData: FormData) {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/addGallery', postData);
+  }
+
+  deleteGallery(fileId: string) {
+    return this.httpClient.delete(environment.apiBaseUrl + 'adminService/deleteGallery/' + fileId);
+  }
 }
