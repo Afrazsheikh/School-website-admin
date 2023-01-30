@@ -7,6 +7,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { HomeSectionsComponent } from './pages/home-sections/home-sections.component';
 import { CareersComponent } from './pages/careers/careers.component';
 import { StudCornerComponent } from './pages/stud-corner/stud-corner.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
 
 const routes: Routes = [
   /* {
@@ -38,6 +39,12 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AuthGuard],
     component: StudCornerComponent
+  },
+  {
+    path: 'aboutUs',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: AboutUsComponent
   },
   {
     path: 'typography',

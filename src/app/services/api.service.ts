@@ -136,4 +136,16 @@ export class ApiService {
   updateStudData(postData: FormData): Observable<any> {
     return this.httpClient.post(environment.apiBaseUrl + 'adminService/updateStudData', postData);
   }
+  //AboutUS
+  getAboutUS(): Observable<any> {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=aboutUs');
+  }
+
+  updateAboutUs(postData: FormData): Observable<any> {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/updateAboutUs', postData);
+  }
+  updateAbouUsMessage(postData: FormData): Observable<any> {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/updateAboutUSRM', postData);
+  }
+
 }
