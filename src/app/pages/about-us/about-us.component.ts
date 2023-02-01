@@ -6,9 +6,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 
-
-
-
 @Component({
   selector: 'app-about-us',
   templateUrl: './about-us.component.html',
@@ -22,7 +19,7 @@ export class AboutUsComponent implements OnInit {
   messageData: any;
   messageForm: FormGroup;
 
-AboutUsData:  any
+aboutUsData:  any
 aboutUs: FormGroup;
 url1: any;
 url2: any;
@@ -32,8 +29,6 @@ imageFile2: any;
 imageFile3: any;
 isImgUpdating: boolean;
 isStudUpdating: boolean;
-
-aboutUsData :  any
 
   constructor(private api: ApiService,private toaster: ToastrService) { }
 
@@ -54,12 +49,8 @@ aboutUsData :  any
     });
     this.getAboutUs();
   }
-  
-
- 
 
 
-  
   updateMessage()
   {
     this.isMessageUpdating = true;
@@ -75,7 +66,7 @@ aboutUsData :  any
     })
   }
   saveImgMessage(){
-  
+
     this.isImgUpdating = true;
     let postData = new FormData();
     postData.append('file', this.imageFile, this.messageData.img);
@@ -93,7 +84,7 @@ aboutUsData :  any
     })
   }
 
-  
+
   patchFormData(){
     this.url = environment.imageBaseUrl + this.messageData.img;
     this.messageForm.patchValue({
@@ -119,9 +110,9 @@ aboutUsData :  any
 
   getAboutUs()
   {
-    this.api.getStudentData().subscribe((resp) => {
-      this.AboutUsData = resp.data.studCorner;
-      this.getAboutUs();
+    this.api.getAboutUS().subscribe((resp) => {
+      this.aboutUsData = resp.data.aboutUs;
+      this.patchForm();
     },
     (err: HttpErrorResponse) => {
       console.error(err);
@@ -129,13 +120,13 @@ aboutUsData :  any
     })
   }
 
-  
+
   patchForm()
   {
     this.url1 = environment.imageBaseUrl + this.aboutUsData.img1;
     this.url2 = environment.imageBaseUrl + this.aboutUsData.img2;
     this.url3 = environment.imageBaseUrl + this.aboutUsData.img3;
-   
+
 
     this.aboutUs.patchValue({
       mainTitle: this.aboutUsData.mainTitle,
@@ -145,7 +136,6 @@ aboutUsData :  any
       desc2: this.aboutUsData.desc2,
       title3: this.aboutUsData.title3,
       desc3: this.aboutUsData.desc3,
-    
     });
   }
 
@@ -162,7 +152,6 @@ aboutUsData :  any
       else if(imgInd == 2) {
         this.imageFile2 = event.target.files[0];
       }
-    
       else {
         this.imageFile3 = event.target.files[0];
       }
@@ -175,7 +164,6 @@ aboutUsData :  any
         else if(imgInd == 2) {
           this.url2 = event.target.result;
         }
-      
         else {
           this.url3 = event.target.result;
         }
@@ -196,7 +184,7 @@ aboutUsData :  any
       postData.append('imgType', 'img2');
       postData.append('file', this.imageFile2, this.aboutUsData.img2);
     }
-   
+
     else {
       postData.append('imgType', 'img3');
       postData.append('file', this.imageFile3, this.aboutUsData.img3);
