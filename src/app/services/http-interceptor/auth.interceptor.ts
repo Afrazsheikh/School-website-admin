@@ -26,7 +26,8 @@ export class AuthInterceptor implements HttpInterceptor {
     'api/v1/adminService/addGallery',
     'api/v1/adminService/deleteGallery',
     'api/v1/adminService/updateCareer',
-    'api/v1/adminService/updateStudData'
+    'api/v1/adminService/updateStudData',
+    'api/v1/adminService/updateAboutUs'
   ];
 
   constructor() {}
