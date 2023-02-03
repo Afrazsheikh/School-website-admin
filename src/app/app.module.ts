@@ -23,6 +23,7 @@ import { CommonModule } from '@angular/common';
 import { CareersComponent } from './pages/careers/careers.component';
 import { StudCornerComponent } from './pages/stud-corner/stud-corner.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { AdmissionComponent } from './pages/admission/admission.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
     HomeSectionsComponent,
     CareersComponent,
     StudCornerComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    AdmissionComponent
   ],
   imports: [
     BrowserModule,

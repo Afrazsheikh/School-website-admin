@@ -8,6 +8,7 @@ import { HomeSectionsComponent } from './pages/home-sections/home-sections.compo
 import { CareersComponent } from './pages/careers/careers.component';
 import { StudCornerComponent } from './pages/stud-corner/stud-corner.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { AdmissionComponent } from './pages/admission/admission.component';
 
 const routes: Routes = [
   /* {
@@ -45,6 +46,12 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AuthGuard],
     component: AboutUsComponent
+  },
+  {
+    path: 'admissions',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: AdmissionComponent
   },
   {
     path: 'typography',

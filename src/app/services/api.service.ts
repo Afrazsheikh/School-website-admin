@@ -147,5 +147,13 @@ export class ApiService {
   updateAbouUsMessage(postData: FormData): Observable<any> {
     return this.httpClient.post(environment.apiBaseUrl + 'adminService/updateAboutUSRM', postData);
   }
+  //admission
+  updateAdmission(postData: FormData): Observable<any> {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/updateAdmData', postData);
+  }
+  getAdmission(): Observable<any> {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=admission');
+  }
+
 
 }
