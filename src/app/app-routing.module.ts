@@ -9,6 +9,8 @@ import { CareersComponent } from './pages/careers/careers.component';
 import { StudCornerComponent } from './pages/stud-corner/stud-corner.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { AdmissionComponent } from './pages/admission/admission.component';
+import { GalleryComponent } from './pages/gallery/gallery.component';
+import { GalleryImagesComponent } from './pages/gallery/gallery-images/gallery-images.component';
 
 const routes: Routes = [
   /* {
@@ -54,6 +56,18 @@ const routes: Routes = [
     component: AdmissionComponent
   },
   {
+    path: 'gallery',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: GalleryComponent
+  },
+  {
+    path: 'gallery/:id',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: GalleryImagesComponent
+  },
+  {
     path: 'typography',
     pathMatch: 'full',
     canActivate: [AuthGuard],
@@ -76,18 +90,18 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./pages/ui-elements/ui-elements.module').then(m => m.UiElementsModule)
   },
-  {
+ /*  {
     path: '404',
     component: NotFoundComponent
-  },
+  }, */
   {
     path: 'login',
     loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule)
   },
-  {
+  /* {
     path: '**',
     redirectTo: '404'
-  }
+  } */
 ];
 
 @NgModule({

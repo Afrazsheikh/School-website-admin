@@ -275,7 +275,7 @@
       <mat-tab label="Section 6">
         <div class="p-3">
           <div class="text-end mb-4">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGallery">Add Gallery Image</button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGallery">Add Event</button>
           </div>
 
           <div class="section-table">
@@ -284,16 +284,23 @@
                 <tr>
                   <th scope="col">S.No.</th>
                   <th scope="col">Image</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">SubTitle</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let gall of galleries; index as i">
+                <tr *ngFor="let slide of sec6Slides; index as i">
                   <th scope="row">{{i + 1}}</th>
-                  <td><img class="table-slide-img" [src]="environment.imageBaseUrl + gall.img" /></td>
+                  <td><img class="table-slide-img" [src]="environment.imageBaseUrl + slide.coverImage" /></td>
+                  <td>{{slide.title}}</td>
+                  <td>{{slide.subTitle}}</td>
                   <td>
-                    <i class="fa fa-trash del" (click)="setDeletedGallery(gall)"
-                      data-bs-toggle="modal" data-bs-target="#delGallery"></i>
+                    <i class="fa fa-pencil-square-o edit" (click)="setEditedSlide6(slide)"
+                      data-bs-toggle="modal" data-bs-target="#editSection6"></i>
+                    &nbsp;&nbsp;&nbsp;
+                    <i class="fa fa-trash del" (click)="setDeletedSlide(slide)"
+                      data-bs-toggle="modal" data-bs-target="#delSection6"></i>
                   </td>
                 </tr>
               </tbody>
@@ -729,25 +736,46 @@
   </div>
 </div>
 
-<!--Add Gallery Modal-->
+<!--Add Event Modal-->
 <div class="modal fade" id="addGallery">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Images</h5>
-        <button type="button" id="galleryClose" class="btn-close" data-bs-dismiss="modal" (click)="galleryFiles=[]"></button>
+        <h5 class="modal-title" id="exampleModalLabel">Add New Event</h5>
+        <button type="button" id="addSec6Close" class="btn-close" data-bs-dismiss="modal" (click)="clearGalleryData()"></button>
       </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="formFile" class="form-label">Select Image(s) [Max 10 per request]</label>
-          <input class="form-control" type="file" id="addGalleryInp" (change)="onSelectGalleryFile($event)" multiple="true">
-          <img class="slide-img img-fluid rounded" [src]="sec1Url1" alt="">
+      <form [formGroup]="section6Form">
+        <div class="modal-body">
+          <div class="row mb-3">
+            <p>Academic Year</p>
+            <div class="col-6">
+              <label for="formFile" class="form-label">From</label>
+              <input class="form-control" type="number" formControlName="fromYear">
+            </div>
+            <div class="col-6">
+              <label for="formFile" class="form-label">To</label>
+              <input class="form-control" type="number" formControlName="toYear">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Event Cover Image</label>
+            <input class="form-control" type="file" id="addEventCoverInp" (change)="onSelectEventCoverFile($event)">
+            <img class="slide-img img-fluid rounded" [src]="sec6Url1" alt="">
+          </div>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Title</label>
+            <input class="form-control" type="text" formControlName="title">
+          </div>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">SubTitle</label>
+            <input class="form-control" type="text" formControlName="subTitle">
+          </div>
         </div>
-      </div>
+      </form>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="galleryFiles=[]">Close</button>
-        <button type="button" class="btn btn-primary" (click)="addGallery()"
-          [disabled]="isSectionLoading || !galleryFiles.length">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearGalleryData()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addSection6Slide()"
+          [disabled]="isSectionLoading || !section6Form.valid || !sec6File1">
           <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
           <span *ngIf="!isSectionLoading">Add Images</span>
         </button>
@@ -756,20 +784,68 @@
   </div>
 </div>
 
-<!--Delete Gallery Modal-->
-<div class="modal fade" id="delGallery">
+<!--Edit Event Modal-->
+<div class="modal fade" id="editSection6">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete Gallery</h5>
-        <button type="button" id="gallDelClose" class="btn-close" data-bs-dismiss="modal" (click)="selectedGall=null"></button>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Event</h5>
+        <button type="button" id="editSec6Close" class="btn-close" data-bs-dismiss="modal" (click)="clearGalleryData()"></button>
+      </div>
+      <form [formGroup]="section6Form">
+        <div class="modal-body">
+          <div class="row mb-3">
+            <p>Academic Year</p>
+            <div class="col-6">
+              <label for="formFile" class="form-label">From</label>
+              <input class="form-control" type="number" formControlName="fromYear">
+            </div>
+            <div class="col-6">
+              <label for="formFile" class="form-label">To</label>
+              <input class="form-control" type="number" formControlName="toYear">
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Event Cover Image</label>
+            <input class="form-control" type="file" id="addEventCoverInp" (change)="onSelectEventCoverFile($event)">
+            <img class="slide-img img-fluid rounded" [src]="sec6Url1" alt="">
+          </div>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Title</label>
+            <input class="form-control" type="text" formControlName="title">
+          </div>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">SubTitle</label>
+            <input class="form-control" type="text" formControlName="subTitle">
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearGalleryData()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="editSection6Slide()"
+          [disabled]="isSectionLoading || !section6Form.valid">
+          <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isSectionLoading">Add Images</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Event Modal -->
+<div class="modal fade" id="delSection6">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Slide</h5>
+        <button type="button" id="delSec6Close" class="btn-close" data-bs-dismiss="modal" (click)="clearGalleryData()"></button>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delete this gallery Image?</p>
+        <p>Are you sure you want to delete this Slide?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="selectedGall=null">Close</button>
-        <button type="button" class="btn btn-danger" (click)="deleteGallery()" [disabled]="isSectionLoading">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearGalleryData()">Close</button>
+        <button type="button" class="btn btn-danger" (click)="deleteSection6Slide()" [disabled]="isSectionLoading">
           <span *ngIf="isSectionLoading" class="spinner-border text-light" role="status"></span>
           <span *ngIf="!isSectionLoading">Delete</span>
         </button>

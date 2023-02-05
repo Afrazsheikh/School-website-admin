@@ -75,19 +75,6 @@ export class ApiService {
     return this.httpClient.post(environment.apiBaseUrl + 'adminService/addSection', postData);
   }
 
-  // For Section 6 + Gallery
-  getGalleries(): Observable<any> {
-    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=galleries');
-  }
-
-  addGallery(postData: FormData): Observable<any> {
-    return this.httpClient.post(environment.apiBaseUrl + 'adminService/addGallery', postData);
-  }
-
-  deleteGallery(fileId: string): Observable<any> {
-    return this.httpClient.delete(environment.apiBaseUrl + 'adminService/deleteGallery/' + fileId);
-  }
-
   //section4
   getSection4(): Observable<any> {
     return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=section4');
@@ -116,6 +103,15 @@ export class ApiService {
 
   deleteSec5Slide(slideId: string): Observable<any> {
     return this.httpClient.delete(environment.apiBaseUrl + 'adminService/deleteSection5/' + slideId);
+  }
+
+  //section 6
+  getSection6(): Observable<any> {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=section6');
+  }
+
+  deleteSec6Slide(slideId: string): Observable<any> {
+    return this.httpClient.delete(environment.apiBaseUrl + 'adminService/deleteSection6/' + slideId);
   }
 
   // Menu APIS
@@ -155,5 +151,29 @@ export class ApiService {
     return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=admission');
   }
 
+  // Gallery Album
+  getAlbums(): Observable<any> {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getAlbums');
+  }
+
+  addAlbum(postData: any): Observable<any> {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/addAlbum', postData);
+  }
+
+  deleteAlbum(album: string): Observable<any> {
+    return this.httpClient.delete(environment.apiBaseUrl + 'adminService/deleteAlbum/' + album);
+  }
+
+  getGalleries(album): Observable<any> {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getGalleries?album=' + album);
+  }
+
+  addGallery(postData: FormData): Observable<any> {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/addGallery', postData);
+  }
+
+  deleteGallery(album: string, fileId: string): Observable<any> {
+    return this.httpClient.delete(environment.apiBaseUrl + 'adminService/deleteGallery/' + album + '?fileId=' + fileId);
+  }
 
 }

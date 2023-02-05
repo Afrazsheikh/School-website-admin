@@ -1,0 +1,21 @@
+.table-slide-img {
+  width: 200px;
+  height: 100px;
+}
+
+.fa {
+  cursor: pointer;
+}
+
+.fa.edit {
+  color: blue;
+}
+
+.fa.del {
+  color: red;
+}
+
+.back-btn mat-icon {
+  font-size: 40pt;
+  cursor: pointer;
+}

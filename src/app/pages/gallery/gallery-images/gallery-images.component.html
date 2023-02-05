@@ -1,0 +1,78 @@
+<app-layout>
+  <div class="container p-5">
+    <div class="back-btn mb-5" routerLink="/gallery"><mat-icon>keyboard_backspace</mat-icon></div>
+    <h1 >Gallery of Academic Year {{selectedAlbum}}</h1>
+
+    <div class="text-end mb-4">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAlbum">Add Images</button>
+    </div>
+
+    <div class="section-table">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">S.No.</th>
+            <th scope="col">Image</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let gal of galleries; index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td><img class="table-slide-img" [src]="environment.imageBaseUrl + gal" /></td>
+            <td>
+              <i class="fa fa-trash del" (click)="setDeletedGallery(gal)"
+                data-bs-toggle="modal" data-bs-target="#delGallery"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-layout>
+
+<!--Add Gallery Modal-->
+<div class="modal fade" id="addAlbum">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Album</h5>
+        <button type="button" id="addGalleryClose" class="btn-close" data-bs-dismiss="modal" (click)="this.galleryFiles=[]"></button>
+      </div>
+        <div class="modal-body">
+          <label for="formFile" class="form-label">Select Images (Max 10 per request)</label>
+          <input class="form-control" id="addGalleryInp" type="file" (change)="onSelectGalleryFile($event)"  multiple="true">
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="this.galleryFiles=[]">Close</button>
+        <button type="button" class="btn btn-primary"
+          [disabled]="isLoading || !this.galleryFiles.length" (click)="addGallery()">
+          <span *ngIf="isLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isLoading">Add Album Images</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Delete Gallery Modal-->
+<div class="modal fade" id="delGallery">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Gallery</h5>
+        <button type="button" id="gallDelClose" class="btn-close" data-bs-dismiss="modal" (click)="selectedGall=null"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this gallery Image?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="selectedGall=null">Close</button>
+        <button type="button" class="btn btn-danger" (click)="deleteGallery()" [disabled]="isLoading">
+          <span *ngIf="isLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isLoading">Delete</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

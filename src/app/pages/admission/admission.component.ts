@@ -4,9 +4,6 @@ import { ApiService } from 'src/app/services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-
-
 
 
 @Component({
@@ -15,18 +12,18 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./admission.component.css']
 })
 export class AdmissionComponent implements OnInit {
- 
+
 
 
   isAdmUpdating: boolean;
-  AdmData: any;
-  AdmissionForm: FormGroup;
+  admData: any;
+  admissionForm: FormGroup;
 
 
   constructor(private api: ApiService,private toaster: ToastrService) { }
 
   ngOnInit(): void {
-    this.AdmissionForm = new FormGroup({
+    this.admissionForm = new FormGroup({
       title1: new FormControl(null, [Validators.required]),
       description1: new FormControl(null, [Validators.required]),
       title2: new FormControl(null, [Validators.required]),
@@ -39,12 +36,12 @@ export class AdmissionComponent implements OnInit {
 
     this.getAdmissions();
   }
-  
+
   getAdmissions()
   {
     this.api.getAdmission().subscribe((resp) => {
-      this.AdmData = resp.data.studCorner;
-      this.getAdmissions();
+      this.admData = resp.data.admission;
+      this.patchForm();
     },
     (err: HttpErrorResponse) => {
       console.error(err);
@@ -54,23 +51,23 @@ export class AdmissionComponent implements OnInit {
 
   patchForm()
   {
-    
-    this.AdmissionForm.patchValue({
-      title1: this.AdmData.title1,
-      description1: this.AdmData.description1,
-      title2: this.AdmData.title2,
-      description2: this.AdmData.description2,
-      title3: this.AdmData.title3,
-      description3: this.AdmData.description3,
-      title4: this.AdmData.title4,
-      description4: this.AdmData.description4
+
+    this.admissionForm.patchValue({
+      title1: this.admData.step1Title,
+      description1: this.admData.step1Desc,
+      title2: this.admData.step2Title,
+      description2: this.admData.step2Desc,
+      title3: this.admData.step3Title,
+      description3: this.admData.step3Desc,
+      title4: this.admData.step4Title,
+      description4: this.admData.step4Desc
     });
   }
 
   updateAdmmision()
   {
     this.isAdmUpdating = true;
-    this.api.updateAdmission(this.AdmissionForm.value).subscribe((resp) => {
+    this.api.updateAdmission(this.admissionForm.value).subscribe((resp) => {
       this.isAdmUpdating = false;
       this.toaster.success(null, resp.message);
       console.log(resp);

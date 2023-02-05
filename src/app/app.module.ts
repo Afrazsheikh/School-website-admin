@@ -24,6 +24,9 @@ import { CareersComponent } from './pages/careers/careers.component';
 import { StudCornerComponent } from './pages/stud-corner/stud-corner.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { AdmissionComponent } from './pages/admission/admission.component';
+import { GalleryComponent } from './pages/gallery/gallery.component';
+import { GalleryImagesComponent } from './pages/gallery/gallery-images/gallery-images.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { AdmissionComponent } from './pages/admission/admission.component';
     CareersComponent,
     StudCornerComponent,
     AboutUsComponent,
-    AdmissionComponent
+    AdmissionComponent,
+    GalleryComponent,
+    GalleryImagesComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +54,7 @@ import { AdmissionComponent } from './pages/admission/admission.component';
     ToastrModule.forRoot({positionClass: 'toast-center-center'}),
     MatCardModule,
     MatTabsModule,
+    MatIconModule,
     MatButtonModule,
     HttpClientModule,
     NgxEchartsModule.forRoot({

@@ -1,0 +1,91 @@
+<app-layout>
+  <div class="container p-5">
+    <h1 >Photo Album</h1>
+
+    <div class="text-end mb-4">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAlbum">Add Album</button>
+    </div>
+
+    <div class="section-table">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">S.No.</th>
+            <th scope="col">Academic Year</th>
+            <th scope="col">Total Photos</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let alb of albums; index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td>{{alb.albumName}}</td>
+            <td>{{alb.images.length}}</td>
+            <td>
+              <i class="fa fa-pencil-square-o edit" [routerLink]="[alb.albumName]"></i>
+              &nbsp;&nbsp;&nbsp;
+              <i class="fa fa-trash del" (click)="setDeletedAlbum(alb)"
+                data-bs-toggle="modal" data-bs-target="#delAlbum"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-layout>
+
+<div class="modal fade" id="addAlbum">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Album</h5>
+        <button type="button" id="addAlbumClose" class="btn-close" data-bs-dismiss="modal" (click)="clearGalleryData()"></button>
+      </div>
+      <form [formGroup]="albumForm">
+        <div class="modal-body">
+          <div class="row mb-3">
+            <p>Academic Year</p>
+            <div class="col-6">
+              <label for="formFile" class="form-label">From</label>
+              <input class="form-control" type="number" formControlName="fromYear">
+            </div>
+            <div class="col-6">
+              <label for="formFile" class="form-label">To</label>
+              <input class="form-control" type="number" formControlName="toYear">
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="clearGalleryData()">Close</button>
+        <button type="button" class="btn btn-primary"
+          [disabled]="isLoading || !albumForm.valid" (click)="addAlbum()">
+          <span *ngIf="isLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isLoading">Add Album</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Delete Gallery Modal-->
+<div class="modal fade" id="delAlbum">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Album</h5>
+        <button type="button" id="gallDelClose" class="btn-close" data-bs-dismiss="modal" (click)="selectedAlbum=null"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this Album? Note - Deleting album also deletes galleries linked to this album.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="selectedAlbum=null">Close</button>
+        <button type="button" class="btn btn-danger" (click)="deleteAlbum()" [disabled]="isLoading">
+          <span *ngIf="isLoading" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isLoading">Delete</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
