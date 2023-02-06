@@ -1,0 +1,23 @@
+<app-layout>
+<div class="container p-5">
+
+    <div class="row my-5">
+        <div class="col-6 my-auto">
+          <label for="formFile" class="form-label">Upload Documents</label>
+          <input class="form-control" type="file" id="formFile" (change)="onSelectFile($event)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="updateDocs()" [disabled]="!docsFile || isDocsUpdating">
+              <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isDocsUpdating">Upload </span>
+            </button>
+          </div>
+        </div>
+        <div class="col-4 text-end">
+          <img class="school-logo img-fluid rounded" [src]="url" alt="">
+        </div>
+      </div>
+
+
+</div>
+
+</app-layout>

@@ -24,6 +24,7 @@ import { CareersComponent } from './pages/careers/careers.component';
 import { StudCornerComponent } from './pages/stud-corner/stud-corner.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { AdmissionComponent } from './pages/admission/admission.component';
+import { PublicMandComponent } from './pages/public-mand/public-mand.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AdmissionComponent } from './pages/admission/admission.component';
     CareersComponent,
     StudCornerComponent,
     AboutUsComponent,
-    AdmissionComponent
+    AdmissionComponent,
+    PublicMandComponent
   ],
   imports: [
     BrowserModule,

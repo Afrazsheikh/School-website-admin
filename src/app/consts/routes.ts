@@ -5,6 +5,7 @@ export enum routes {
   CAREERS = '/careers',
   STUDCORNER = '/stud-corner',
   ABOUTUS ='/aboutUs',
+  PUBLIC_MEND ='/public-mend',
   ADMISSION ='/admissions',
   NOTIFICATION = '/notification',
   UI_ELEMENTS_ICONS = '/ui/icons',

@@ -154,6 +154,10 @@ export class ApiService {
   getAdmission(): Observable<any> {
     return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=admission');
   }
+//documents
 
+updateDocs(postData: FormData): Observable<any> {
+  return this.httpClient.post(environment.apiBaseUrl + 'adminService/uploadDocs', postData);
+}
 
 }

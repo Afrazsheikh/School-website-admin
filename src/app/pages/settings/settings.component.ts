@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
 export class SettingsComponent implements OnInit {
 
   url: any;
-  logoFile: any;
+  logoFile: any; 
   isLogoUpdating: boolean;
   isSettingsUpdating: boolean;
   settingsForm: FormGroup

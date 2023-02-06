@@ -9,6 +9,7 @@ import { CareersComponent } from './pages/careers/careers.component';
 import { StudCornerComponent } from './pages/stud-corner/stud-corner.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { AdmissionComponent } from './pages/admission/admission.component';
+import { PublicMandComponent } from './pages/public-mand/public-mand.component';
 
 const routes: Routes = [
   /* {
@@ -52,6 +53,12 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AuthGuard],
     component: AdmissionComponent
+  },
+  {
+    path: 'public-mend',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: PublicMandComponent
   },
   {
     path: 'typography',
