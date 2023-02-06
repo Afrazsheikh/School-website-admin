@@ -19,18 +19,14 @@ import { AuthInterceptor } from './services/http-interceptor/auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeSectionsComponent } from './pages/home-sections/home-sections.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { CommonModule } from '@angular/common';
 import { CareersComponent } from './pages/careers/careers.component';
 import { StudCornerComponent } from './pages/stud-corner/stud-corner.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { AdmissionComponent } from './pages/admission/admission.component';
-<<<<<<< HEAD
 import { PublicMandComponent } from './pages/public-mand/public-mand.component';
-=======
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { GalleryImagesComponent } from './pages/gallery/gallery-images/gallery-images.component';
 import { MatIconModule } from '@angular/material/icon';
->>>>>>> 465503af4bcf14e15f9588eaac8ed6b0b36ad8a4
 
 @NgModule({
   declarations: [
@@ -42,12 +38,9 @@ import { MatIconModule } from '@angular/material/icon';
     StudCornerComponent,
     AboutUsComponent,
     AdmissionComponent,
-<<<<<<< HEAD
-    PublicMandComponent
-=======
+    PublicMandComponent,
     GalleryComponent,
     GalleryImagesComponent
->>>>>>> 465503af4bcf14e15f9588eaac8ed6b0b36ad8a4
   ],
   imports: [
     BrowserModule,

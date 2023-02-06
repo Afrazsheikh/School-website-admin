@@ -1,23 +1,233 @@
 <app-layout>
 <div class="container p-5">
 
+    <h3>DOCUMENTS AND INFORMATION</h3>
     <div class="row my-5">
         <div class="col-6 my-auto">
-          <label for="formFile" class="form-label">Upload Documents</label>
-          <input class="form-control" type="file" id="formFile" (change)="onSelectFile($event)">
+          <label for="formFile" class="form-label">
+            1. Copies of socities/trust/company registration/renewal certificate as applicable
+            <a *ngIf="docsData?.trustDoc" [href]="environment.docBaseUrl + docsData.trustDoc" _target="blank">View Doc</a>
+          </label>
+          <input class="form-control" type="file" name="formFile" accept="application/pdf, application/msword"
+            (change)="onSelectFile($event, 0)">
           <div class="my-4">
-            <button class="btn btn-primary" (click)="updateDocs()" [disabled]="!docsFile || isDocsUpdating">
+            <button class="btn btn-primary" (click)="addDocs('trustDoc', 0)" [disabled]="!docFile[0] || isDocsUpdating">
               <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
               <span *ngIf="!isDocsUpdating">Upload </span>
             </button>
           </div>
         </div>
-        <div class="col-4 text-end">
-          <img class="school-logo img-fluid rounded" [src]="url" alt="">
+      </div>
+
+      <div class="row my-5">
+        <div class="col-6 my-auto">
+          <label for="formFile" class="form-label">
+            2. Copy of no objection certificate (noc) issued if applicable by the state govt/ut
+          </label>
+          <input class="form-control" type="file" name="formFile" accept="application/pdf, application/msword"
+            (change)="onSelectFile($event, 1)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="addDocs('nocDoc', 1)" [disabled]="!docFile[1] || isDocsUpdating">
+              <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isDocsUpdating">Upload </span>
+            </button>
+          </div>
         </div>
       </div>
 
+      <div class="row my-5">
+        <div class="col-6 my-auto">
+          <label for="formFile" class="form-label">
+            3. Copies of recognisition certificate under rte act. 2009. And it’s renewal if applicable
+          </label>
+          <input class="form-control" type="file" name="formFile" accept="application/pdf, application/msword"
+            (change)="onSelectFile($event, 2)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="addDocs('recogDoc', 2)" [disabled]="!docFile[2] || isDocsUpdating">
+              <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isDocsUpdating">Upload </span>
+            </button>
+          </div>
+        </div>
+      </div>
 
+      <div class="row my-5">
+        <div class="col-6 my-auto">
+          <label for="formFile" class="form-label">
+            4. Copy of valid building safety certificate as per the national building code
+          </label>
+          <input class="form-control" type="file" name="formFile" accept="application/pdf, application/msword"
+            (change)="onSelectFile($event, 3)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="addDocs('buildingDoc', 3)" [disabled]="!docFile[3] || isDocsUpdating">
+              <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isDocsUpdating">Upload </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-5">
+        <div class="col-6 my-auto">
+          <label for="formFile" class="form-label">
+            5. Copy of valid fire safety certificate issued by the competent authority
+          </label>
+          <input class="form-control" type="file" name="formFile" accept="application/pdf, application/msword"
+            (change)="onSelectFile($event, 4)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="addDocs('fireDoc', 4)" [disabled]="!docFile[4] || isDocsUpdating">
+              <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isDocsUpdating">Upload </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-5">
+        <div class="col-6 my-auto">
+          <label for="formFile" class="form-label">
+            6. Copies ofCopy of the deo certificate submitted by the school for affiliation/upgradation/extension of affiliation self certification by school
+          </label>
+          <input class="form-control" type="file" name="formFile" accept="application/pdf, application/msword"
+            (change)="onSelectFile($event, 5)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="addDocs('deoDoc', 5)" [disabled]="!docFile[5] || isDocsUpdating">
+              <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isDocsUpdating">Upload </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-5">
+        <div class="col-6 my-auto">
+          <label for="formFile" class="form-label">
+            7. Copies of valid water, health and sanitation certificates
+          </label>
+          <input class="form-control" type="file" name="formFile" accept="application/pdf, application/msword"
+            (change)="onSelectFile($event, 6)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="addDocs('healthDoc', 6)" [disabled]="!docFile[6] || isDocsUpdating">
+              <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isDocsUpdating">Upload </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <h3>RESULT AND ACADEMICS</h3>
+      <div class="row my-5">
+        <div class="col-6 my-auto">
+          <label for="formFile" class="form-label">
+            1. Annual academic calender
+          </label>
+          <input class="form-control" type="file" name="formFile" accept="application/pdf, application/msword"
+            (change)="onSelectFile($event, 7)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="addDocs('feeDoc', 7)" [disabled]="!docFile[7] || isDocsUpdating">
+              <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isDocsUpdating">Upload </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-5">
+        <div class="col-6 my-auto">
+          <label for="formFile" class="form-label">
+            2. List of school management committee (smc)
+          </label>
+          <input class="form-control" type="file" name="formFile" accept="application/pdf, application/msword"
+            (change)="onSelectFile($event, 8)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="addDocs('smcDoc', 8)" [disabled]="!docFile[8] || isDocsUpdating">
+              <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isDocsUpdating">Upload </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-5">
+        <div class="col-6 my-auto">
+          <label for="formFile" class="form-label">
+            3. List of parents teachers association (pta) members
+          </label>
+          <input class="form-control" type="file" name="formFile" accept="application/pdf, application/msword"
+            (change)="onSelectFile($event, 9)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="addDocs('ptaDoc', 9)" [disabled]="!docFile[9] || isDocsUpdating">
+              <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isDocsUpdating">Upload </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-5">
+        <div class="col-6 my-auto">
+          <label for="formFile" class="form-label">
+            4. Last three year result of the board examination as per applicability
+          </label>
+          <input class="form-control" type="file" name="formFile" accept="application/pdf, application/msword"
+            (change)="onSelectFile($event, 10)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="addDocs('resultDoc', 10)" [disabled]="!docFile[10] || isDocsUpdating">
+              <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isDocsUpdating">Upload </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- <h3>STAFF (TEACHINGS)</h3>
+      <div class="row my-5">
+        <div class="col-6 my-auto">
+          <label for="formFile" class="form-label">
+            1. List of school management committee (smc)
+          </label>
+          <input class="form-control" type="file" name="formFile" accept="application/pdf, application/msword"
+            (change)="onSelectFile($event)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="addDocs()" [disabled]="!docFile || isDocsUpdating">
+              <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isDocsUpdating">Upload </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-5">
+        <div class="col-6 my-auto">
+          <label for="formFile" class="form-label">
+            2. List of parents teachers association (pta) members
+          </label>
+          <input class="form-control" type="file" name="formFile" accept="application/pdf, application/msword"
+            (change)="onSelectFile($event)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="addDocs()" [disabled]="!docFile || isDocsUpdating">
+              <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isDocsUpdating">Upload </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row my-5">
+        <div class="col-6 my-auto">
+          <label for="formFile" class="form-label">
+            3. Last three year result of the board examination as per applicability
+          </label>
+          <input class="form-control" type="file" name="formFile" accept="application/pdf, application/msword"
+            (change)="onSelectFile($event)">
+          <div class="my-4">
+            <button class="btn btn-primary" (click)="addDocs()" [disabled]="!docFile || isDocsUpdating">
+              <span *ngIf="isDocsUpdating" class="spinner-border text-light" role="status"></span>
+              <span *ngIf="!isDocsUpdating">Upload </span>
+            </button>
+          </div>
+        </div>
+      </div> -->
 </div>
 
 </app-layout>

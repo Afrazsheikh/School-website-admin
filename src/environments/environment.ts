@@ -7,6 +7,7 @@ export const environment = {
   hmr: false,
   apiBaseUrl: 'http://localhost:3000/api/v1/',
   imageBaseUrl: 'http://localhost:3000/api/v1/uploads/',
+  docBaseUrl: 'http://localhost:3000/api/v1/documents/',
   socketURL: 'http://localhost:3000',
 
 };

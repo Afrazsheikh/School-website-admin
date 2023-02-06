@@ -11,29 +11,46 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./public-mand.component.css']
 })
 export class PublicMandComponent implements OnInit {
-  docsFile: any; 
+  docFile: any[] = [];
   isDocsUpdating: boolean;
   docsData: any
   url:any
+  environment = environment;
 
 
   constructor(private api: ApiService, private toaster: ToastrService) { }
 
   ngOnInit(): void {
+    this.getDocuments();
   }
 
-  form(){
-    this.url = environment.imageBaseUrl + this.docsData.docsFile
+  getDocuments() {
+    this.api.getDocuments().subscribe((resp) => {
+      console.log(resp);
+      this.docsData = resp.data.documents;
+    },
+    (err) => {
+      console.error(err);
+    });
   }
-  updateDocs()
+
+  addDocs(docType: string, index: number)
   {
     this.isDocsUpdating = true;
     let postData = new FormData();
-    postData.append('file', this.docsFile, this.docsData.docsFile);
+    postData.append('file', this.docFile[index]);
+    postData.append('docType', docType);
+    if(this.docsData && this.docsData[docType]) {
+      postData.append('originalFile', this.docsData[docType])
+    }
 
-    this.api.updateDocs(postData).subscribe((resp) => {
+    this.api.addDocs(postData).subscribe((resp) => {
       this.isDocsUpdating = false;
+      this.docFile[index] = null;
+      let fileInp: any = document.getElementsByName('formFile')[index];
+      fileInp.value = null;
       this.toaster.success(null, resp.message);
+      this.getDocuments();
       console.log(resp);
     },
     (err: HttpErrorResponse) => {
@@ -43,18 +60,14 @@ export class PublicMandComponent implements OnInit {
     })
   }
 
-  onSelectFile(event)
+  onSelectFile(event, index: number)
   {
     if (event.target.files && event.target.files[0])
     {
       var reader = new FileReader();
 
       reader.readAsDataURL(event.target.files[0]);
-      this.docsFile = event.target.files[0];
-
-      reader.onload = (event) => {
-        this.url = event.target.result;
-      }
+      this.docFile[index] = event.target.files[0];
     }
   }
 

@@ -150,13 +150,7 @@ export class ApiService {
   getAdmission(): Observable<any> {
     return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=admission');
   }
-//documents
 
-<<<<<<< HEAD
-updateDocs(postData: FormData): Observable<any> {
-  return this.httpClient.post(environment.apiBaseUrl + 'adminService/uploadDocs', postData);
-}
-=======
   // Gallery Album
   getAlbums(): Observable<any> {
     return this.httpClient.get(environment.apiBaseUrl + 'adminService/getAlbums');
@@ -181,6 +175,14 @@ updateDocs(postData: FormData): Observable<any> {
   deleteGallery(album: string, fileId: string): Observable<any> {
     return this.httpClient.delete(environment.apiBaseUrl + 'adminService/deleteGallery/' + album + '?fileId=' + fileId);
   }
->>>>>>> 465503af4bcf14e15f9588eaac8ed6b0b36ad8a4
+
+  //documents
+  getDocuments(): Observable<any> {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=documents');
+  }
+
+  addDocs(postData: FormData): Observable<any> {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/addDocument', postData);
+  }
 
 }

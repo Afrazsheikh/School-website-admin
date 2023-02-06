@@ -33,7 +33,8 @@ export class AuthInterceptor implements HttpInterceptor {
     'api/v1/adminService/updateAdmData',
     'api/v1/adminService/getAlbums',
     'api/v1/adminService/addAlbum',
-    'api/v1/adminService/deleteAlbum'
+    'api/v1/adminService/deleteAlbum',
+    'api/v1/adminService/addDocument'
   ];
 
   constructor() {}
