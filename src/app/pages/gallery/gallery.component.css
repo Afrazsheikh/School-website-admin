@@ -1,0 +1,11 @@
+.fa {
+  cursor: pointer;
+}
+
+.fa.edit {
+  color: blue;
+}
+
+.fa.del {
+  color: red;
+}

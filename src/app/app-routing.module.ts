@@ -9,7 +9,12 @@ import { CareersComponent } from './pages/careers/careers.component';
 import { StudCornerComponent } from './pages/stud-corner/stud-corner.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { AdmissionComponent } from './pages/admission/admission.component';
+<<<<<<< HEAD
 import { PublicMandComponent } from './pages/public-mand/public-mand.component';
+=======
+import { GalleryComponent } from './pages/gallery/gallery.component';
+import { GalleryImagesComponent } from './pages/gallery/gallery-images/gallery-images.component';
+>>>>>>> 465503af4bcf14e15f9588eaac8ed6b0b36ad8a4
 
 const routes: Routes = [
   /* {
@@ -55,10 +60,23 @@ const routes: Routes = [
     component: AdmissionComponent
   },
   {
+<<<<<<< HEAD
     path: 'public-mend',
     pathMatch: 'full',
     canActivate: [AuthGuard],
     component: PublicMandComponent
+=======
+    path: 'gallery',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: GalleryComponent
+  },
+  {
+    path: 'gallery/:id',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: GalleryImagesComponent
+>>>>>>> 465503af4bcf14e15f9588eaac8ed6b0b36ad8a4
   },
   {
     path: 'typography',
@@ -83,18 +101,18 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./pages/ui-elements/ui-elements.module').then(m => m.UiElementsModule)
   },
-  {
+ /*  {
     path: '404',
     component: NotFoundComponent
-  },
+  }, */
   {
     path: 'login',
     loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule)
   },
-  {
+  /* {
     path: '**',
     redirectTo: '404'
-  }
+  } */
 ];
 
 @NgModule({

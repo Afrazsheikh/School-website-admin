@@ -52,9 +52,6 @@ export class HomeSectionsComponent implements OnInit {
   sec7File4: any;
   sec7File5: any;
 
-  galleries: any[] = [];
-  galleryFiles: any[] = [];
-  selectedGall: any;
   section4Form: FormGroup;
   sec4File1: any;
   slide4Form: FormGroup;
@@ -65,6 +62,11 @@ export class HomeSectionsComponent implements OnInit {
   sec5Slides: any[] = [];
   sec5Url1: any;
   sec5File1: any;
+
+  section6Form : FormGroup;
+  sec6Slides: any[] = [];
+  sec6Url1: any;
+  sec6File1: any;
 
 
   constructor(private api: ApiService, private toaster: ToastrService) {}
@@ -114,6 +116,13 @@ export class HomeSectionsComponent implements OnInit {
       newsDate: new FormControl(null, [Validators.required]),
     })
 
+    this.section6Form = new FormGroup({
+      fromYear: new FormControl(null, [Validators.required]),
+      toYear: new FormControl(null, [Validators.required]),
+      title: new FormControl(null, [Validators.required]),
+      subTitle: new FormControl(null, [Validators.required]),
+    })
+
     this.section7Form = new FormGroup({
       title: new FormControl(null, [Validators.required]),
       subTitle: new FormControl(null, [Validators.required]),
@@ -141,7 +150,7 @@ export class HomeSectionsComponent implements OnInit {
       this.getSection5();
     }
     else if(event.index == 5) {
-      this.getGalleries();
+      this.getSection6();
     }
     else {
       this.getSection7();
@@ -606,49 +615,36 @@ export class HomeSectionsComponent implements OnInit {
   }
 
   // For Section 6
-  onSelectGalleryFile(event)
+  getSection6()
   {
-    if (event.target.files && event.target.files.length)
-    {
-      if(event.target.files.length <= 10) {
-        for(let i = 0; i < event.target.files.length; i++) {
-          this.galleryFiles.push(event.target.files[i]);
-        }
-      }
-      else {
-        this.toaster.warning(null, "Please select Upto 10 Images");
-      }
-
-      console.log(this.galleryFiles);
-    }
-  }
-
-  getGalleries()
-  {
-    this.api.getGalleries().subscribe((resp: any) => {
+    this.api.getSection6().subscribe((resp: any) => {
       console.log(resp);
-      this.galleries = resp.data.galleries;
+      this.sec6Slides = resp.data.section6;
     },
     (err) => {
       console.error(err);
     })
   }
 
-  addGallery()
+  addSection6Slide()
   {
     this.isSectionLoading = true;
     let postData = new FormData();
-    this.galleryFiles.forEach(gall => {
-      postData.append('file[]', gall);
-    });
+    postData.append('file', this.sec6File1);
+    postData.append('title', this.section6Form.value.title);
+    postData.append('subTitle', this.section6Form.value.subTitle);
+    postData.append('fromYear', this.section6Form.value.fromYear);
+    postData.append('toYear', this.section6Form.value.toYear);
     postData.append('secType', 'sec6');
 
-    this.api.addGallery(postData).subscribe((resp) => {
+    this.api.addHomeSlide(postData).subscribe((resp) => {
+      console.log("resp5", resp);
+
       this.isSectionLoading = false;
-      document.getElementById('galleryClose')?.click();
-      const fileInp: any = document.getElementById('addGalleryInp');
+      document.getElementById('addSec6Close')?.click();
+      let fileInp: any = document.getElementById('addEventCoverInp');
       fileInp.value = null;
-      this.getGalleries();
+      this.getSection6();
       console.log(resp);
     },
     (err) => {
@@ -657,23 +653,84 @@ export class HomeSectionsComponent implements OnInit {
     })
   }
 
-  setDeletedGallery(gall: any) {
-    this.selectedGall = gall;
+  setEditedSlide6(slide: any)
+  {
+    this.selectedSlide = slide;
+    this.section6Form.patchValue({
+      fromYear: this.selectedSlide.academicYear.from,
+      toYear: this.selectedSlide.academicYear.to,
+      title: this.selectedSlide.title,
+      subTitle: this.selectedSlide.subTitle
+    });
+
+    this.sec6Url1 = environment.imageBaseUrl + this.selectedSlide.coverImage;
   }
 
-  deleteGallery()
+  editSection6Slide()
   {
     this.isSectionLoading = true;
+    let postData = new FormData();
+    if(this.sec6File1) {
+      postData.append('file', this.sec6File1, this.selectedSlide.coverImage);
+    }
 
-    this.api.deleteGallery(this.selectedGall._id).subscribe((resp) => {
+    postData.append('id', this.selectedSlide._id);
+    postData.append('title', this.section6Form.value.title);
+    postData.append('subTitle', this.section6Form.value.subTitle);
+    postData.append('fromYear', this.section6Form.value.fromYear);
+    postData.append('toYear', this.section6Form.value.toYear);
+    postData.append('secType', 'sec6');
+
+    this.api.editHomeSlide(postData).subscribe((resp) => {
       this.isSectionLoading = false;
-      document.getElementById('gallDelClose')?.click();
-      this.getGalleries();
+      document.getElementById('editSec6Close')?.click();
+      this.getSection6();
       console.log(resp);
     },
     (err) => {
       this.isSectionLoading = false;
       console.error(err);
+    })
+  }
+
+  deleteSection6Slide()
+  {
+    this.isSectionLoading = true;
+    this.api.deleteSec6Slide(this.selectedSlide._id).subscribe((resp) => {
+      this.isSectionLoading = false;
+      document.getElementById('delSec6Close')?.click();
+      this.getSection6();
+      console.log(resp);
+    },
+    (err) => {
+      this.isSectionLoading = false;
+      console.error(err);
+    })
+  }
+
+  onSelectEventCoverFile(event)
+  {
+    if (event.target.files && event.target.files[0])
+    {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]);
+
+      this.sec6File1 = event.target.files[0];
+
+      reader.onload = (event) => {
+        this.sec6Url1 = event.target.result;
+      }
+    }
+  }
+
+  clearGalleryData()
+  {
+    this.section6Form.patchValue({
+      fromYear: null,
+      toYear: null,
+      title: null,
+      subTitle: null
     })
   }
 

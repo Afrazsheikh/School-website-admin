@@ -24,7 +24,13 @@ import { CareersComponent } from './pages/careers/careers.component';
 import { StudCornerComponent } from './pages/stud-corner/stud-corner.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { AdmissionComponent } from './pages/admission/admission.component';
+<<<<<<< HEAD
 import { PublicMandComponent } from './pages/public-mand/public-mand.component';
+=======
+import { GalleryComponent } from './pages/gallery/gallery.component';
+import { GalleryImagesComponent } from './pages/gallery/gallery-images/gallery-images.component';
+import { MatIconModule } from '@angular/material/icon';
+>>>>>>> 465503af4bcf14e15f9588eaac8ed6b0b36ad8a4
 
 @NgModule({
   declarations: [
@@ -36,7 +42,12 @@ import { PublicMandComponent } from './pages/public-mand/public-mand.component';
     StudCornerComponent,
     AboutUsComponent,
     AdmissionComponent,
+<<<<<<< HEAD
     PublicMandComponent
+=======
+    GalleryComponent,
+    GalleryImagesComponent
+>>>>>>> 465503af4bcf14e15f9588eaac8ed6b0b36ad8a4
   ],
   imports: [
     BrowserModule,
@@ -51,6 +62,7 @@ import { PublicMandComponent } from './pages/public-mand/public-mand.component';
     ToastrModule.forRoot({positionClass: 'toast-center-center'}),
     MatCardModule,
     MatTabsModule,
+    MatIconModule,
     MatButtonModule,
     HttpClientModule,
     NgxEchartsModule.forRoot({

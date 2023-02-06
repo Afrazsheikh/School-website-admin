@@ -20,14 +20,20 @@ export class AuthInterceptor implements HttpInterceptor {
     'api/v1/adminService/deleteSection',
     'api/v1/adminService/deleteSection4',
     'api/v1/adminService/deleteSection5',
+    'api/v1/adminService/deleteSection6',
     'api/v1/adminService/addSection2Img',
     'api/v1/adminService/addSection3Img',
     'api/v1/adminService/addSection4Img',
+    'api/v1/adminService/getGalleries',
     'api/v1/adminService/addGallery',
     'api/v1/adminService/deleteGallery',
     'api/v1/adminService/updateCareer',
     'api/v1/adminService/updateStudData',
-    'api/v1/adminService/updateAboutUs'
+    'api/v1/adminService/updateAboutUs',
+    'api/v1/adminService/updateAdmData',
+    'api/v1/adminService/getAlbums',
+    'api/v1/adminService/addAlbum',
+    'api/v1/adminService/deleteAlbum'
   ];
 
   constructor() {}

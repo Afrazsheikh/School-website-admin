@@ -7,6 +7,7 @@ export enum routes {
   ABOUTUS ='/aboutUs',
   PUBLIC_MEND ='/public-mend',
   ADMISSION ='/admissions',
+  GALLERY = '/gallery',
   NOTIFICATION = '/notification',
   UI_ELEMENTS_ICONS = '/ui/icons',
   UI_ELEMENTS_CHARTS = '/ui/charts',
