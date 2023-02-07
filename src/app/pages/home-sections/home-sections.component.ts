@@ -304,6 +304,9 @@ export class HomeSectionsComponent implements OnInit {
   {
     this.isSectionLoading = true;
     let postData = this.section2Form.value;
+    postData["bottomImage1"] = this.sec2Data.bottomImage1;
+    postData["bottomImage2"] = this.sec2Data.bottomImage2;
+    postData["bottomImage3"] = this.sec2Data.bottomImage3;
     postData["secType"] = "sec2";
     this.api.updateSection2(postData).subscribe((resp) => {
       console.log(resp);
@@ -424,6 +427,8 @@ export class HomeSectionsComponent implements OnInit {
   {
     this.isSectionLoading = true;
     let postData = this.section3Form.value;
+    postData["img"] = this.sec3Data.img;
+    postData["videoThumb"] = this.sec3Data.videoThumb;
     postData["secType"] = "sec3";
     this.api.updateSection2(postData).subscribe((resp) => {
       console.log(resp);
@@ -503,6 +508,11 @@ export class HomeSectionsComponent implements OnInit {
   {
     this.isSectionLoading = true;
     let postData = this.section7Form.value;
+    postData["topLeftImage"] = this.sec7Data.topLeftImage;
+    postData["topRightImage"] = this.sec7Data.topRightImage;
+    postData["centerImage"] = this.sec7Data.centerImage;
+    postData["bottomLeftImage"] = this.sec7Data.bottomLeftImage;
+    postData["bottomRightImage"] = this.sec7Data.bottomRightImage;
     postData["secType"] = "sec7";
     this.api.updateSection7(postData).subscribe((resp) => {
       console.log(resp);
