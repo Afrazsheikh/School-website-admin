@@ -4,7 +4,7 @@
 
       <form [formGroup]="admissionForm" (ngSubmit)="updateAdmmision()">
         <div class="row mt-5">
-          <div class="col-6">
+          <div class="col-12">
             <fieldset class="mt-3">
               <legend>Step 1</legend>
               <div>
@@ -14,25 +14,14 @@
 
               <div class="mt-3">
                 <label for="formFile" class="form-label">Description</label>
-                <textarea rows="3" class="form-control" id="formFile" formControlName="description1"></textarea>
-              </div>
-            </fieldset>
-
-            <fieldset class="mt-3">
-              <legend>Step 3</legend>
-              <div>
-                <label for="formFile" class="form-label">Title 3</label>
-                <input class="form-control" type="text" id="formFile" formControlName="title3">
-              </div>
-
-              <div class="mt-3">
-                <label for="formFile" class="form-label">Description</label>
-                <textarea rows="3" class="form-control" id="formFile" formControlName="description3"></textarea>
+                <quill-editor format="html" theme="snow" formControlName="description1"></quill-editor>
               </div>
             </fieldset>
           </div>
+          </div>
 
-            <div class="col-6">
+          <div class="row">
+            <div class="col-12">
               <fieldset class="mt-3">
                 <legend>Step 2</legend>
                 <div>
@@ -42,10 +31,33 @@
 
                 <div class="mt-3">
                   <label for="formFile" class="form-label">Description</label>
-                  <textarea rows="3" class="form-control" id="formFile" formControlName="description2"></textarea>
+                  <quill-editor format="html" theme="snow" formControlName="description2"></quill-editor>
                 </div>
               </fieldset>
+            </div>
 
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+
+              <fieldset class="mt-3">
+             <legend>Step 3</legend>
+             <div>
+               <label for="formFile" class="form-label">Title 3</label>
+               <input class="form-control" type="text" id="formFile" formControlName="title3">
+             </div>
+
+             <div class="mt-3">
+               <label for="formFile" class="form-label">Description</label>
+               <quill-editor format="html" theme="snow" formControlName="description3"></quill-editor>
+             </div>
+           </fieldset>
+           </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
               <fieldset class="mt-3">
                 <legend>Step 4</legend>
                 <div >
@@ -55,17 +67,17 @@
 
                 <div class="mt-3">
                   <label for="formFile" class="form-label">Description</label>
-                  <textarea rows="3" class="form-control" id="formFile" formControlName="description4"></textarea>
+                  <quill-editor format="html" theme="snow" formControlName="description4"></quill-editor>
                 </div>
               </fieldset>
             </div>
+          </div>
 
             <div class="text-center my-5">
               <button class="btn btn-primary" [disabled]="!admissionForm.valid || isAdmUpdating">
                 <span *ngIf="isAdmUpdating" class="spinner-border text-light" role="status"></span>
                 <span *ngIf="!isAdmUpdating">Save Details</span></button>
             </div>
-        </div>
       </form>
     </div>
   </app-layout>

@@ -13,11 +13,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class AdmissionComponent implements OnInit {
 
-
-
   isAdmUpdating: boolean;
   admData: any;
   admissionForm: FormGroup;
+  content: any;
 
 
   constructor(private api: ApiService,private toaster: ToastrService) { }
@@ -77,6 +76,10 @@ export class AdmissionComponent implements OnInit {
       this.toaster.error(null, err.error.message);
       console.error(err);
     })
+  }
+
+  setContentData(event) {
+    console.log(event);
   }
 
 

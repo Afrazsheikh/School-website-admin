@@ -24,9 +24,11 @@ aboutUs: FormGroup;
 url1: any;
 url2: any;
 url3: any;
+url4: any;
 imageFile1: any;
 imageFile2: any;
 imageFile3: any;
+imageFile4: any;
 isImgUpdating: boolean;
 isStudUpdating: boolean;
 
@@ -46,6 +48,8 @@ isStudUpdating: boolean;
       desc2: new FormControl(null, [Validators.required]),
       title3: new FormControl(null, [Validators.required]),
       desc3: new FormControl(null, [Validators.required]),
+      title4: new FormControl(null, [Validators.required]),
+      desc4: new FormControl(null, [Validators.required]),
     });
     this.getAboutUs();
   }
@@ -126,6 +130,7 @@ isStudUpdating: boolean;
     this.url1 = environment.imageBaseUrl + this.aboutUsData.img1;
     this.url2 = environment.imageBaseUrl + this.aboutUsData.img2;
     this.url3 = environment.imageBaseUrl + this.aboutUsData.img3;
+    this.url4 = environment.imageBaseUrl + this.aboutUsData.img4;
 
 
     this.aboutUs.patchValue({
@@ -136,6 +141,8 @@ isStudUpdating: boolean;
       desc2: this.aboutUsData.desc2,
       title3: this.aboutUsData.title3,
       desc3: this.aboutUsData.desc3,
+      title4: this.aboutUsData.title4,
+      desc4: this.aboutUsData.desc4,
     });
   }
 
@@ -152,8 +159,11 @@ isStudUpdating: boolean;
       else if(imgInd == 2) {
         this.imageFile2 = event.target.files[0];
       }
-      else {
+      else if(imgInd == 3) {
         this.imageFile3 = event.target.files[0];
+      }
+      else {
+        this.imageFile4 = event.target.files[0];
       }
 
 
@@ -164,8 +174,11 @@ isStudUpdating: boolean;
         else if(imgInd == 2) {
           this.url2 = event.target.result;
         }
-        else {
+        else if(imgInd == 3) {
           this.url3 = event.target.result;
+        }
+        else {
+          this.url4 = event.target.result;
         }
       }
     }
@@ -185,9 +198,13 @@ isStudUpdating: boolean;
       postData.append('file', this.imageFile2, this.aboutUsData.img2);
     }
 
-    else {
+    else if(imgInd == 3) {
       postData.append('imgType', 'img3');
       postData.append('file', this.imageFile3, this.aboutUsData.img3);
+    }
+    else {
+      postData.append('imgType', 'img4');
+      postData.append('file', this.imageFile4, this.aboutUsData.img4);
     }
 
     this.api.updateAboutUs(postData).subscribe((resp) => {

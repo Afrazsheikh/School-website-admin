@@ -8,3 +8,7 @@ legend {
   float: unset;
   width: unset;
 }
+
+.ql-editor {
+  min-height: 300px;
+}

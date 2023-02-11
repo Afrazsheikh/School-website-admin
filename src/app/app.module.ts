@@ -27,6 +27,7 @@ import { PublicMandComponent } from './pages/public-mand/public-mand.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { GalleryImagesComponent } from './pages/gallery/gallery-images/gallery-images.component';
 import { MatIconModule } from '@angular/material/icon';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     MatButtonModule,
     HttpClientModule,
+    QuillModule.forRoot(),
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })

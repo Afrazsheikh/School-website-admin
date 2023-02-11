@@ -100,6 +100,36 @@
           </div>
         </div>
 
+        <div class="row mt-4">
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12">
+                <label for="formFile" class="form-label">Left Title 2</label>
+                <input class="form-control" type="text" id="formFile" formControlName="title4">
+              </div>
+
+              <div class="col-12 mt-3">
+                <label for="formFile" class="form-label">Description</label>
+                <textarea rows="3" class="form-control" id="formFile" formControlName="desc4"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <label for="formFile" class="form-label">Right Image 2</label>
+            <div class="my-3">
+              <img class="school-logo img-fluid rounded" [src]="url4" alt="">
+            </div>
+            <input class="form-control" type="file" id="formFile" (change)="onSelectFile($event, 4)">
+            <div class="my-4">
+              <button class="btn btn-primary" (click)="saveImg(4)" [disabled]="!imageFile4 || isImgUpdating">
+                <span *ngIf="isImgUpdating" class="spinner-border text-light" role="status"></span>
+                <span *ngIf="!isImgUpdating">Save Image</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div class="text-center my-5">
           <button class="btn btn-primary" [disabled]="!aboutUs.valid || isStudUpdating">
             <span *ngIf="isStudUpdating" class="spinner-border text-light" role="status"></span>
@@ -112,7 +142,7 @@
 
 
     <!-- add Message -->
-    <h2>About US Message</h2>
+    <!-- <h2>About US Message</h2>
     <form [formGroup]="messageForm" (ngSubmit)="updateMessage()">
         <div class="row mt-5">
           <div class="col-6">
@@ -149,7 +179,7 @@
             </div>
           </div>
         </div>
-      </form>
+      </form> -->
 
 
 
