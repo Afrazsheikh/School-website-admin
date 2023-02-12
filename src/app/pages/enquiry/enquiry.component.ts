@@ -21,6 +21,8 @@ export class EnquiryComponent implements OnInit {
   {
     this.api.getEnquiry().subscribe((resp) => {
       this.enquiry = resp.data;
+      console.log(resp, "---->");
+      
     },
     (err) => {
       console.error(err);

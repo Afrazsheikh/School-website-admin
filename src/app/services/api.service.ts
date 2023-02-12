@@ -187,7 +187,7 @@ export class ApiService {
   //forms
 
   getEnquiry(): Observable<any> {
-    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getEnquiry');
+    return this.httpClient.get(environment.apiBaseUrl + 'userService/getEnquiry');
   }
 
   getFeedback(): Observable<any> {
