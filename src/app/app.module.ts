@@ -27,7 +27,10 @@ import { PublicMandComponent } from './pages/public-mand/public-mand.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { GalleryImagesComponent } from './pages/gallery/gallery-images/gallery-images.component';
 import { MatIconModule } from '@angular/material/icon';
+import { EnquiryComponent } from './pages/enquiry/enquiry.component';
 import { QuillModule } from 'ngx-quill';
+import { FeedbakFormComponent } from './pages/feedbak-form/feedbak-form.component';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +44,10 @@ import { QuillModule } from 'ngx-quill';
     AdmissionComponent,
     PublicMandComponent,
     GalleryComponent,
-    GalleryImagesComponent
+    GalleryImagesComponent,
+    EnquiryComponent,
+    FeedbakFormComponent,
+
   ],
   imports: [
     BrowserModule,

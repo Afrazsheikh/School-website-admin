@@ -12,6 +12,8 @@ import { AdmissionComponent } from './pages/admission/admission.component';
 import { PublicMandComponent } from './pages/public-mand/public-mand.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
 import { GalleryImagesComponent } from './pages/gallery/gallery-images/gallery-images.component';
+import { EnquiryComponent } from './pages/enquiry/enquiry.component';
+import { FeedbakFormComponent } from './pages/feedbak-form/feedbak-form.component';
 
 const routes: Routes = [
   /* {
@@ -55,6 +57,18 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AuthGuard],
     component: AdmissionComponent
+  },
+  {
+    path: 'enquiry',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: EnquiryComponent
+  },
+  {
+    path: 'feedback',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: FeedbakFormComponent
   },
   {
     path: 'public-mend',

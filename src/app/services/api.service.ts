@@ -184,5 +184,15 @@ export class ApiService {
   addDocs(postData: FormData): Observable<any> {
     return this.httpClient.post(environment.apiBaseUrl + 'adminService/addDocument', postData);
   }
+  //forms
+
+  getEnquiry(): Observable<any> {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getEnquiry');
+  }
+
+  getFeedback(): Observable<any> {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getfeedback');
+  }
+
 
 }
