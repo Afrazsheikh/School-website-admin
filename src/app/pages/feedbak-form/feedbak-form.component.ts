@@ -21,9 +21,9 @@ export class FeedbakFormComponent implements OnInit {
 
   getfeedback()
   {
-    this.api.getEnquiry().subscribe((resp) => {
+    this.api.getFeedback().subscribe((resp) => {
       this.feedback = resp.data;
-      console.log(this.feedback, "feeedback");
+      console.log(resp, "feeedback");
       
     },
     (err) => {

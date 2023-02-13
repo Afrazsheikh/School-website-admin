@@ -191,7 +191,7 @@ export class ApiService {
   }
 
   getFeedback(): Observable<any> {
-    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getfeedback');
+    return this.httpClient.get(environment.apiBaseUrl + 'userService/getfeedback');
   }
 
 
