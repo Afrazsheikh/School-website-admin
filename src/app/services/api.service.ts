@@ -137,6 +137,9 @@ export class ApiService {
     return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=aboutUs');
   }
 
+  getFacility(): Observable<any> {
+    return this.httpClient.get(environment.apiBaseUrl + 'adminService/getSection?secType=facility');
+  }
   updateAboutUs(postData: FormData): Observable<any> {
     return this.httpClient.post(environment.apiBaseUrl + 'adminService/updateAboutUs', postData);
   }
@@ -195,4 +198,7 @@ export class ApiService {
   }
 
 
+  addFacility(postData: FormData): Observable<any> {
+    return this.httpClient.post(environment.apiBaseUrl + 'adminService/addfacility', postData);
+  }
 }

@@ -30,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { EnquiryComponent } from './pages/enquiry/enquiry.component';
 import { QuillModule } from 'ngx-quill';
 import { FeedbakFormComponent } from './pages/feedbak-form/feedbak-form.component';
+import { FacilityComponent } from './pages/facility/facility.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { FeedbakFormComponent } from './pages/feedbak-form/feedbak-form.componen
     GalleryImagesComponent,
     EnquiryComponent,
     FeedbakFormComponent,
+    FacilityComponent,
 
   ],
   imports: [

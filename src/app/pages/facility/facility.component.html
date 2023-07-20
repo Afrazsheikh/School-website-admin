@@ -1,0 +1,282 @@
+<app-layout>
+    <div class="container p-5">
+      <h1 >Facilities</h1>
+
+      <form [formGroup]="facilityForm" (ngSubmit)="updateFacilites()">
+        <div class="row mt-5">
+          <div class="col-6">
+            <label for="formFile" class="form-label">Main Title</label>
+            <input class="form-control" type="text" id="formFile" formControlName="mainTitle">
+          </div>
+          <div class="col-6">
+            <label for="formFile" class="form-label">Main Description</label>
+            <input class="form-control" type="text" id="formFile" formControlName="mainDesc">
+          </div>
+        </div>
+
+        <div class="row mt-5">
+          <!-- <div class="col-6">
+            <label for="formFile" class="form-label">Left Image 1</label>
+            <div class="my-3">
+              <img class="school-logo img-fluid rounded" [src]="url1" alt="">
+            </div>
+            <input class="form-control" type="file" id="formFile" (change)="onSelectFile($event, 1)">
+            <div class="my-4">
+              <button class="btn btn-primary" (click)="saveImg(1)" [disabled]="!imageFile1 || isImgUpdating">
+                <span *ngIf="isImgUpdating" class="spinner-border text-light" role="status"></span>
+                <span *ngIf="!isImgUpdating">Save Image</span>
+              </button>
+            </div>
+          </div> -->
+
+         
+            <div class="row">
+                <div class="col-6">
+                    <label for="formFile" class="form-label">Left Titile</label>
+                    <input class="form-control" type="text" id="formFile" formControlName="titleLeft">
+                  </div>
+              <div class="col-6">
+                <label for="formFile" class="form-label">Right Title </label>
+                <input class="form-control" type="text" id="formFile" formControlName="titleRight">
+              </div>
+
+             
+            </div>
+        
+        </div>
+
+        <div class="row mt-4">
+          <!-- <div class="col-6"> -->
+            <!-- <div class="row"> -->
+              <div class="col-3">
+                <label for="formFile" class="form-label">Left Sub titile 1</label>
+                <input class="form-control" type="text" id="formFile" formControlName="titleSubLeft1">
+              </div>
+
+              <div class="col-3 ">
+                <label for="formFile" class="form-label">Description 1</label>
+                <textarea rows="3" class="form-control" id="formFile" formControlName="summaryL1"></textarea>
+              </div>
+            <!-- </div> -->
+          <!-- </div> -->
+          <!-- <div class="col-3"> -->
+            <!-- <div class="row"> -->
+              <div class="col-3">
+                <label for="formFile" class="form-label">Right Sub titile 1</label>
+                <input class="form-control" type="text" id="formFile" formControlName="titleSubRight1">
+              </div>
+
+              <div class="col-3 mt-3">
+                <label for="formFile" class="form-label">Description 1 </label>
+                <textarea rows="3" class="form-control" id="formFile" formControlName="desc1"></textarea>
+              </div>
+            <!-- </div> -->
+          <!-- </div> -->
+
+         
+        </div>
+
+        <div class="row mt-4">
+          
+                <div class="col-3">
+                  <label for="formFile" class="form-label">Left Sub titile 2</label>
+                  <input class="form-control" type="text" id="formFile" formControlName="titleSubLeft2">
+                </div>
+  
+                <div class="col-3 ">
+                  <label for="formFile" class="form-label">Description 2</label>
+                  <textarea rows="3" class="form-control" id="formFile" formControlName="summaryL2"></textarea>
+                </div>
+          
+                <div class="col-3">
+                  <label for="formFile" class="form-label">Right Sub titile 2</label>
+                  <input class="form-control" type="text" id="formFile" formControlName="titleSubRight2">
+                </div>
+  
+                <div class="col-3 mt-3">
+                  <label for="formFile" class="form-label">Description 2</label>
+                  <textarea rows="3" class="form-control" id="formFile" formControlName="desc2"></textarea>
+                </div>
+          
+  
+           
+          </div>
+          
+        <div class="row mt-4">
+            <div class="col-3">
+              <label for="formFile" class="form-label">Left Sub titile 3</label>
+              <input class="form-control" type="text" id="formFile" formControlName="titleSubLeft3">
+            </div>
+
+            <div class="col-3 ">
+              <label for="formFile" class="form-label">Description 3</label>
+              <textarea rows="3" class="form-control" id="formFile" formControlName="summaryL3"></textarea>
+            </div>
+      
+            <div class="col-3">
+              <label for="formFile" class="form-label">Right Sub titile 3</label>
+              <input class="form-control" type="text" id="formFile" formControlName="titleSubRight3">
+            </div>
+
+            <div class="col-3 mt-3">
+              <label for="formFile" class="form-label">Description 2</label>
+              <textarea rows="3" class="form-control" id="formFile" formControlName="desc3"></textarea>
+            </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-3">
+          <label for="formFile" class="form-label">Left Sub titile 4</label>
+          <input class="form-control" type="text" id="formFile" formControlName="titleSubLeft4">
+        </div>
+
+        <div class="col-3 ">
+          <label for="formFile" class="form-label">Description 4</label>
+          <textarea rows="3" class="form-control" id="formFile" formControlName="summaryL4"></textarea>
+        </div>
+  
+        <div class="col-3">
+          <label for="formFile" class="form-label">Right Sub titile 4</label>
+          <input class="form-control" type="text" id="formFile" formControlName="titleSubRight4">
+        </div>
+
+        <div class="col-3 mt-3">
+          <label for="formFile" class="form-label">Description 4</label>
+          <textarea rows="3" class="form-control" id="formFile" formControlName="desc4"></textarea>
+        </div>
+  </div>
+  
+
+  <div class="row mt-4">
+    <div class="col-3">
+      <label for="formFile" class="form-label">Left Sub titile 5</label>
+      <input class="form-control" type="text" id="formFile" formControlName="titleSubLeft5">
+    </div>
+
+    <div class="col-3 ">
+      <label for="formFile" class="form-label">Description 5</label>
+      <textarea rows="3" class="form-control" id="formFile" formControlName="summaryL5"></textarea>
+    </div>
+
+    <div class="col-3">
+      <label for="formFile" class="form-label">Right Sub titile 5</label>
+      <input class="form-control" type="text" id="formFile" formControlName="titleSubRight5">
+    </div>
+
+    <div class="col-3 mt-3">
+      <label for="formFile" class="form-label">Description 5</label>
+      <textarea rows="3" class="form-control" id="formFile" formControlName="desc5"></textarea>
+    </div>
+</div>
+      
+
+      
+
+     
+
+      <div class="row">
+        <div class="col-md-3">
+            <label for="formFile" class="form-label"> Image 1</label>
+            <div class="my-3">
+              <img class="school-logo img-fluid rounded" [src]="url1" alt="">
+            </div>
+            <input class="form-control" type="file" id="formFile" (change)="onSelectFile($event, 1)">
+            <div class="my-4">
+              <button class="btn btn-primary" (click)="saveImg(1)" [disabled]="!imageFile1 || isImgUpdating">
+                <span *ngIf="isImgUpdating" class="spinner-border text-light" role="status"></span>
+                <span *ngIf="!isImgUpdating">Save Image</span>
+              </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="formFile" class="form-label"> Image 2</label>
+            <div class="my-3">
+              <img class="school-logo img-fluid rounded" [src]="url2" alt="">
+            </div>
+            <input class="form-control" type="file" id="formFile" (change)="onSelectFile($event, 2)">
+            <div class="my-4">
+              <button class="btn btn-primary" (click)="saveImg(2)" [disabled]="!imageFile2 || isImgUpdating">
+                <span *ngIf="isImgUpdating" class="spinner-border text-light" role="status"></span>
+                <span *ngIf="!isImgUpdating">Save Image</span>
+              </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="formFile" class="form-label"> Image 3</label>
+            <div class="my-3">
+              <img class="school-logo img-fluid rounded" [src]="url3" alt="">
+            </div>
+            <input class="form-control" type="file" id="formFile" (change)="onSelectFile($event, 3)">
+            <div class="my-4">
+              <button class="btn btn-primary" (click)="saveImg(3)" [disabled]="!imageFile3 || isImgUpdating">
+                <span *ngIf="isImgUpdating" class="spinner-border text-light" role="status"></span>
+                <span *ngIf="!isImgUpdating">Save Image</span>
+              </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="formFile" class="form-label"> Image 4</label>
+            <div class="my-3">
+              <img class="school-logo img-fluid rounded" [src]="url4" alt="">
+            </div>
+            <input class="form-control" type="file" id="formFile" (change)="onSelectFile($event, 4)">
+            <div class="my-4">
+              <button class="btn btn-primary" (click)="saveImg(4)" [disabled]="!imageFile4 || isImgUpdating">
+                <span *ngIf="isImgUpdating" class="spinner-border text-light" role="status"></span>
+                <span *ngIf="!isImgUpdating">Save Image</span>
+              </button>
+            </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label for="formFile" class="form-label"> Image 5</label>
+            <div class="my-3">
+              <img class="school-logo img-fluid rounded" [src]="url5" alt="">
+            </div>
+            <input class="form-control" type="file" id="formFile" (change)="onSelectFile($event, 5)">
+            <div class="my-4">
+              <button class="btn btn-primary" (click)="saveImg(5)" [disabled]="!imageFile5 || isImgUpdating">
+                <span *ngIf="isImgUpdating" class="spinner-border text-light" role="status"></span>
+                <span *ngIf="!isImgUpdating">Save Image</span>
+              </button>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="formFile" class="form-label"> Image 6</label>
+            <div class="my-3">
+              <img class="school-logo img-fluid rounded" [src]="url6" alt="">
+            </div>
+            <input class="form-control" type="file" id="formFile" (change)="onSelectFile($event, 6)">
+            <div class="my-4">
+              <button class="btn btn-primary" (click)="saveImg(6)" [disabled]="!imageFile6 || isImgUpdating">
+                <span *ngIf="isImgUpdating" class="spinner-border text-light" role="status"></span>
+                <span *ngIf="!isImgUpdating">Save Image</span>
+              </button>
+            </div>
+        </div>
+       
+     
+    </div>
+    <!-- <div class="text-center my-5">
+        <button class="btn btn-primary" [disabled]="!aboutUs.valid || isStudUpdating">
+          <span *ngIf="isStudUpdating" class="spinner-border text-light" role="status"></span>
+          <span *ngIf="!isStudUpdating">Save Details</span></button>
+      </div> -->
+      <div class="text-center my-5">
+        <button class="btn btn-primary">Save Details</button>
+      </div>
+
+    </form>
+
+<!-- read more form  -->
+
+
+
+    
+
+
+
+    </div>
+
+  </app-layout>

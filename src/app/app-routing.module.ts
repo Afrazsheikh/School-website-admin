@@ -14,6 +14,7 @@ import { GalleryComponent } from './pages/gallery/gallery.component';
 import { GalleryImagesComponent } from './pages/gallery/gallery-images/gallery-images.component';
 import { EnquiryComponent } from './pages/enquiry/enquiry.component';
 import { FeedbakFormComponent } from './pages/feedbak-form/feedbak-form.component';
+import { FacilityComponent } from './pages/facility/facility.component';
 
 const routes: Routes = [
   /* {
@@ -87,6 +88,11 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AuthGuard],
     component: GalleryImagesComponent
+  },
+  {
+    path: 'facility',
+    canActivate: [AuthGuard],
+    component: FacilityComponent
   },
   {
     path: 'typography',
