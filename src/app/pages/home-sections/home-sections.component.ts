@@ -73,6 +73,7 @@ export class HomeSectionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSection1();
+    this.getSection7()
 
     this.slideForm = new FormGroup({
       title: new FormControl(null, [Validators.required])
@@ -496,7 +497,11 @@ export class HomeSectionsComponent implements OnInit {
   getSection7()
   {
     this.api.getSection7().subscribe((resp: any) => {
+      console.log(resp);
+      
       this.sec7Data = resp.data.section7;
+      console.log(this.sec7Data);
+      
       this.patchSection7Data();
     },
     (err) => {

@@ -39,6 +39,8 @@ isStudUpdating: boolean;
   facilityData: any;
   url5: any;
   url6: any;
+  url9: any;
+  imageFile9: any;
 
 
   constructor(private api: ApiService,private toaster: ToastrService) { }
@@ -169,6 +171,8 @@ console.log(this.imageFile, this.messageData.img);
     this.url4 = environment.imageBaseUrl + this.facilityData.imgF4;
     this.url5 = environment.imageBaseUrl + this.facilityData.imgF5;
     this.url6 = environment.imageBaseUrl + this.facilityData.imgF6;
+    this.url9 = environment.imageBaseUrl + this.facilityData.imgFNew;
+
   
 
 
@@ -226,6 +230,9 @@ console.log(this.imageFile, this.messageData.img);
       }  else if(imgInd == 5) {
         this.imageFile5 = event.target.files[0];
       } 
+      else if(imgInd == 7) {
+        this.imageFile9 = event.target.files[0];
+      } 
       else {
         this.imageFile6 = event.target.files[0];
       }
@@ -245,6 +252,9 @@ console.log(this.imageFile, this.messageData.img);
           this.url4 = event.target.result;
         }  else if(imgInd == 5) {
           this.url5 = event.target.result;
+        }
+        else if(imgInd == 7) {
+          this.url9 = event.target.result;
         }
         else {
           this.url6 = event.target.result;
@@ -279,6 +289,10 @@ console.log(this.imageFile, this.messageData.img);
     else if(imgInd == 5) {
       postData.append('imgType', 'imgF5');
       postData.append('file', this.imageFile5, this.facilityData.imgF5);
+    }
+    else if(imgInd == 7) {
+      postData.append('imgType', 'imgFNew');
+      postData.append('file', this.imageFile9, this.facilityData.imgFNew);
     }
     else {
       postData.append('imgType', 'imgF6');

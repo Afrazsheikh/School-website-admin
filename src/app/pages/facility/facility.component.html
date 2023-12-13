@@ -245,11 +245,11 @@
         <div class="col-md-3">
             <label for="formFile" class="form-label"> Image 6</label>
             <div class="my-3">
-              <img class="school-logo img-fluid rounded" [src]="url6" alt="">
+              <img class="school-logo img-fluid rounded" [src]="url9" alt="">
             </div>
-            <input class="form-control" type="file" id="formFile" (change)="onSelectFile($event, 6)">
+            <input class="form-control" type="file" id="formFile" (change)="onSelectFile($event, 7)">
             <div class="my-4">
-              <button class="btn btn-primary" (click)="saveImg(6)" [disabled]="!imageFile6 || isImgUpdating">
+              <button class="btn btn-primary" (click)="saveImg(7)" [disabled]="!imageFile9 || isImgUpdating">
                 <span *ngIf="isImgUpdating" class="spinner-border text-light" role="status"></span>
                 <span *ngIf="!isImgUpdating">Save Image</span>
               </button>
