@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { log } from 'console';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
@@ -40,7 +41,7 @@ export class HomeSectionsComponent implements OnInit {
   sec3File2: any;
 
   section7Form: FormGroup;
-  sec7Data: any;
+  sec7Data: any = {};
   sec7Url1: any;
   sec7Url2: any;
   sec7Url3: any;
@@ -51,6 +52,8 @@ export class HomeSectionsComponent implements OnInit {
   sec7File3: any;
   sec7File4: any;
   sec7File5: any;
+  // new section 7   sec7Url1: string;
+
 
   section4Form: FormGroup;
   sec4File1: any;
@@ -508,11 +511,35 @@ export class HomeSectionsComponent implements OnInit {
       console.error(err);
     })
   }
+addSection7(){
+  console.log(this.section7Form.value)
+    this.isSectionLoading = true;
+    let postData = this.section7Form.value;
+    postData["topLeftImage"] = this.sec7Data.topLeftImage;
+    postData["topRightImage"] = this.sec7Data.topRightImage;
+    postData["centerImage"] = this.sec7Data.centerImage;
+    postData["bottomLeftImage"] = this.sec7Data.bottomLeftImage;
+    postData["bottomRightImage"] = this.sec7Data.bottomRightImage;
+    postData["secType"] = "sec7";
+    this.api.addHomeSlide(postData).subscribe((resp) => {
+      console.log(resp);
+      this.isSectionLoading = false;
+      this.getSection7();
+    },
+    (err) => {
+      console.error(err);
+      this.isSectionLoading = false;
+    })
+  }
+
 
   updateSection7()
   {
+    console.log(this.section7Form.value)
     this.isSectionLoading = true;
     let postData = this.section7Form.value;
+    console.log(this.sec7Data.topLeftImage);
+    
     postData["topLeftImage"] = this.sec7Data.topLeftImage;
     postData["topRightImage"] = this.sec7Data.topRightImage;
     postData["centerImage"] = this.sec7Data.centerImage;
@@ -591,32 +618,35 @@ export class HomeSectionsComponent implements OnInit {
       }
     }
   }
-
-  saveSection7Img(imgInd: number)
-  {
+  saveSection7Img(imgInd: number) {
     this.isSectionLoading = true;
     let postData = new FormData();
-    if(imgInd == 1) {
-      postData.append('imgType', 'topLeft');
-      postData.append('file', this.sec7File1, this.sec7Data.topLeftImage);
+  
+    // Check if this.sec7Data is defined before accessing its properties
+    if (this.sec7Data) {
+      if (imgInd == 1) {
+        postData.append('imgType', 'topLeftImage');
+        postData.append('file', this.sec7File1, this.sec7Data.topLeftImage);
+      } else if (imgInd == 2) {
+        postData.append('imgType', 'center');
+        postData.append('file', this.sec7File2, this.sec7Data.centerImage);
+      } else if (imgInd == 3) {
+        postData.append('imgType', 'topRight');
+        postData.append('file', this.sec7File3, this.sec7Data.topRightImage);
+      } else if (imgInd == 4) {
+        postData.append('imgType', 'bottomLeft');
+        postData.append('file', this.sec7File4, this.sec7Data.bottomLeftImage);
+      }
+      // Add other conditions if needed for additional image types
+    } else {
+      console.error('this.sec7Data is undefined or null');
+      // Handle the error or log it accordingly
     }
-    else if(imgInd == 2) {
-      postData.append('imgType', 'center');
-      postData.append('file', this.sec7File2, this.sec7Data.centerImage);
-    }
-    else if(imgInd == 3) {
-      postData.append('imgType', 'topRight');
-      postData.append('file', this.sec7File3, this.sec7Data.topRightImage);
-    }
-    else if(imgInd == 4) {
-      postData.append('imgType', 'bottomLeft');
-      postData.append('file', this.sec7File4, this.sec7Data.bottomLeftImage);
-    }
-    else {
-      postData.append('imgType', 'bottomRight');
-      postData.append('file', this.sec7File5, this.sec7Data.bottomRightImage);
-    }
-
+  
+    // Rest of your function...
+  
+  console.log( this.sec7Data.topLeftImage);
+  
     this.api.updateSection7Img(postData).subscribe((resp) => {
       this.isSectionLoading = false;
       this.toaster.success(null, resp.message);
@@ -974,5 +1004,7 @@ export class HomeSectionsComponent implements OnInit {
       console.error(err);
     })
   }
+
+  
 
 }
